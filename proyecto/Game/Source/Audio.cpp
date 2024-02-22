@@ -23,7 +23,7 @@ Audio::~Audio()
 {}
 
 // Called before render is available
-bool Audio::Awake()
+bool Audio::Awake(pugi::xml_node config)
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;

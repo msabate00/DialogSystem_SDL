@@ -6,6 +6,7 @@
 #include "PugiXml/src/pugixml.hpp"
 
 class App;
+class GuiControl;
 
 class Module
 {
@@ -20,7 +21,7 @@ public:
 	}
 
 	// Called before render is available
-	virtual bool Awake()
+	virtual bool Awake(pugi::xml_node config)
 	{
 		return true;
 	}
@@ -51,6 +52,25 @@ public:
 
 	// Called before quitting
 	virtual bool CleanUp()
+	{
+		return true;
+	}
+
+	// L14: TODO 2: Create new virtual methods to LoadState / SaveState
+
+	// Called when we want to load data from XML
+	virtual bool LoadState(pugi::xml_node node)
+	{
+		return true;
+	}
+
+	// Called when we want to save data from XML
+	virtual bool SaveState(pugi::xml_node node)
+	{
+		return true;
+	}
+
+	virtual bool OnGuiMouseClickEvent(GuiControl* control)
 	{
 		return true;
 	}

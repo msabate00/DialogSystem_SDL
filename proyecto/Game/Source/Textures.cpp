@@ -18,7 +18,7 @@ Textures::~Textures()
 {}
 
 // Called before render is available
-bool Textures::Awake()
+bool Textures::Awake(pugi::xml_node config)
 {
 	LOG("Init Image library");
 	bool ret = true;

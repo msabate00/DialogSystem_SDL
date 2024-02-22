@@ -21,16 +21,22 @@ Render::~Render()
 {}
 
 // Called before render is available
-bool Render::Awake()
+bool Render::Awake(pugi::xml_node config)
 {
 	LOG("Create SDL rendering context");
 	bool ret = true;
 
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
 
-	flags |= SDL_RENDERER_PRESENTVSYNC;
-	LOG("Using vsync");
-
+	// L04: DONE 6: Load the VSYNC status from config.xml and adapt the code to set it on / off
+	if (config.child("vsync").attribute("value").as_bool()) {
+		flags |= SDL_RENDERER_PRESENTVSYNC;
+		LOG("Using vsync");
+	}
+	else {
+		LOG("vsync OFF");
+	}
+	 
 	renderer = SDL_CreateRenderer(app->win->window, -1, flags);
 
 	if(renderer == NULL)
@@ -45,6 +51,12 @@ bool Render::Awake()
 		camera.x = 0;
 		camera.y = 0;
 	}
+
+	//initialise the SDL_ttf library
+	TTF_Init();
+
+	//load a font into memory
+	font = TTF_OpenFont("Assets/Fonts/arial/arial.ttf", 25);
 
 	return ret;
 }
@@ -72,7 +84,7 @@ bool Render::Update(float dt)
 
 bool Render::PostUpdate()
 {
-	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
+	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.b, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
 }
@@ -222,4 +234,44 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 	}
 
 	return ret;
+}
+
+bool Render::DrawText(const char* text, int posx, int posy, int w, int h) {
+
+	SDL_Color color = { 255, 255, 255 };
+	SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	int texW = 0;
+	int texH = 0;
+	SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+	SDL_Rect dstrect = { posx, posy, w, h };
+
+	SDL_RenderCopy(renderer, texture, NULL, &dstrect);
+
+	SDL_DestroyTexture(texture);
+	SDL_FreeSurface(surface);
+
+	return true;
+}
+
+// L14: TODO 6: Implement a method to load the state
+// for now load camera's x and y
+bool Render::LoadState(pugi::xml_node node) {
+
+	camera.x = node.child("camera").attribute("x").as_int();
+	camera.y = node.child("camera").attribute("y").as_int();
+
+	return true;
+}
+
+// L14: TODO 8: Create a method to save the state of the renderer
+// using append_child and append_attribute
+bool Render::SaveState(pugi::xml_node node) {
+	
+	pugi::xml_node camNode = node.append_child("camera");
+	camNode.append_attribute("x").set_value(camera.x);
+	camNode.append_attribute("y").set_value(camera.y);
+
+	return true;
 }

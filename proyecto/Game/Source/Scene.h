@@ -2,6 +2,9 @@
 #define __SCENE_H__
 
 #include "Module.h"
+#include "Player.h"
+#include "GuiControl.h"
+#include "GuiControlButton.h"
 
 struct SDL_Texture;
 
@@ -15,7 +18,7 @@ public:
 	virtual ~Scene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node config);
 
 	// Called before the first frame
 	bool Start();
@@ -32,8 +35,24 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Return the player position
+	iPoint GetPLayerPosition();
+
+	// Handles multiple Gui Event methods
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 private:
 	SDL_Texture* img;
+	float textPosX, textPosY = 0;
+	uint texW, texH;
+	uint windowW, windowH;
+	SDL_Texture* mouseTileTex = nullptr;
+
+	//L03: DONE 3b: Declare a Player attribute
+	Player* player;
+
+	// L15: TODO 2: Declare a GUI Control Button 
+	GuiControlButton* gcButtom;
 };
 
 #endif // __SCENE_H__

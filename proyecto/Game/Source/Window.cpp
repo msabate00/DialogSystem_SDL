@@ -20,7 +20,7 @@ Window::~Window()
 }
 
 // Called before render is available
-bool Window::Awake()
+bool Window::Awake(pugi::xml_node config)
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
@@ -34,14 +34,18 @@ bool Window::Awake()
 	{
 		// Create window
 		Uint32 flags = SDL_WINDOW_SHOWN;
-		bool fullscreen = false;
-		bool borderless = false;
-		bool resizable = false;
-		bool fullscreen_window = false;
 
-		width = 1280;
-		height = 720;
-		scale = 1;
+		// L04: DONE 5: Load all required configurations from config.xml
+		// Tip: get the name of the child and the attribute value
+		// Get values of fullscreen, borderless, resizable,fullscreen_window, width, height and scale from config files
+		bool fullscreen = config.child("fullscreen").attribute("value").as_bool(false);
+		bool borderless = config.child("borderless").attribute("value").as_bool(false);
+		bool resizable = config.child("resizable").attribute("value").as_bool(false);
+		bool fullscreen_window = config.child("fullscreen_window").attribute("value").as_bool(false);
+
+		width = config.child("resolution").attribute("width").as_int(640);
+		height = config.child("resolution").attribute("height").as_int(480);
+		scale = config.child("resolution").attribute("scale").as_int(1);
 
 		if(fullscreen == true) flags |= SDL_WINDOW_FULLSCREEN;
 		if(borderless == true) flags |= SDL_WINDOW_BORDERLESS;
