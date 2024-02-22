@@ -7,7 +7,6 @@
 #include "Scene.h"
 #include "Map.h"
 #include "Item.h"
-#include "Optick/include/optick.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -73,7 +72,7 @@ bool Scene::Start()
 
 	// L15: DONE 2: Instantiate a new GuiControlButton in the Scene
 
-	SDL_Rect btPos = { windowW / 2 - 60,20, 120,20};
+	SDL_Rect btPos = { windowW / 2 - 60, windowH / 2 - 10, 120,20};
 	gcButtom = (GuiControlButton*) app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "MyButton", btPos, this);
 
 	return true;
@@ -88,7 +87,6 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	OPTICK_EVENT();
 	//L02 DONE 3: Make the camera movement independent of framerate
 	float camSpeed = 1; 
 
@@ -105,8 +103,24 @@ bool Scene::Update(float dt)
 		app->render->camera.x += (int)ceil(camSpeed * dt);
 
 	// L09 DONE 6: Implement a method that repositions the player in the map with a mouse click
-	iPoint origin = iPoint(2, 21);
-	app->map->pathfinding->CreatePath(origin, app->map->WorldToMap(player->position.x,player->position.y));
+
+	// Get the mouse position and obtain the map coordinate
+	iPoint mousePos;
+	app->input->GetMousePosition(mousePos.x, mousePos.y);
+	iPoint mouseTile = app->map->WorldToMap(mousePos.x - app->render->camera.x,
+										    mousePos.y - app->render->camera.y);
+	
+	// Render a texture where the mouse is over to highlight the tile, use the texture 'mouseTileTex'
+	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
+	app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);
+
+	iPoint origin = iPoint(2, 2);
+
+	//If mouse button is pressed modify player position
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+		player->position = iPoint(highlightedTileWorld.x, highlightedTileWorld.y);
+		app->map->pathfinding->CreatePath(origin, mouseTile);
+	}
 
 	// L13: Get the latest calculated path and draw
 	const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();

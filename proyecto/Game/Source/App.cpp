@@ -8,7 +8,6 @@
 #include "Map.h"
 #include "Physics.h"
 #include "GuiManager.h"
-#include "Optick/include/optick.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -50,8 +49,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);
 
-	AddModule(map);
 	AddModule(scene);
+	AddModule(map);
 	AddModule(entityManager);
 	AddModule(guiManager);
 
@@ -143,9 +142,6 @@ bool App::Start()
 // Called each loop iteration
 bool App::Update()
 {
-	//L16 TODO 2: Add the Optick macro to mark the beginning of the main loop
-	OPTICK_FRAME("Main Loop");
-
 	bool ret = true;
 	PrepareUpdate();
 
@@ -191,17 +187,12 @@ bool App::LoadConfig()
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
-	// L16 TODO 3: Add OPTICK macro to functions to include in the profiling
-	OPTICK_EVENT();
 	frameTime.Start();
 }
 
 // ---------------------------------------------
 void App::FinishUpdate()
 {
-	// L16 TODO 3: Add OPTICK macro to functions to include in the profiling
-	OPTICK_EVENT();
-
 	// This is a good place to call Load / Save functions
 
 	// L02: DONE 1: Cap the framerate of the gameloop
@@ -261,9 +252,6 @@ void App::FinishUpdate()
 // Call modules before each loop iteration
 bool App::PreUpdate()
 {
-	// L16 TODO 3: Add OPTICK macro to functions to include in the profiling
-	OPTICK_EVENT();
-
 	bool ret = true;
 
 	ListItem<Module*>* item;
@@ -286,9 +274,6 @@ bool App::PreUpdate()
 // Call modules on each loop iteration
 bool App::DoUpdate()
 {
-	// L16 TODO 3: Add OPTICK macro to functions to include in the profiling
-	OPTICK_EVENT();
-
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -311,9 +296,6 @@ bool App::DoUpdate()
 // Call modules after each loop iteration
 bool App::PostUpdate()
 {
-	// L16 TODO 3: Add OPTICK macro to functions to include in the profiling
-	OPTICK_EVENT();
-
 	bool ret = true;
 	ListItem<Module*>* item;
 	Module* pModule = NULL;
