@@ -4,6 +4,7 @@
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
+#include "Window.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -44,7 +45,7 @@ bool DialogManager::Start() {
 	bool ret = true; 
 
 	//Iterates over the entities and calls Start
-	ListItem<Dialog*>* item;
+	/*ListItem<Dialog*>* item;
 	Dialog* pDialog = NULL;
 
 	for (item = dialogues.start; item != NULL && ret == true; item = item->next)
@@ -53,7 +54,18 @@ bool DialogManager::Start() {
 
 		if (pDialog->active == false) continue;
 		ret = item->data->Start();
-	}
+	}*/
+
+	uint windowW, windowH;
+	app->win->GetWindowSize(windowW, windowH);
+
+	dialogMargin = 20;
+
+	textColor = { 255,255,255,255 };
+	textBoundWidth = windowW - dialogMargin;
+
+
+	indexText = 0;
 
 	return ret;
 }
@@ -103,20 +115,37 @@ List<Dialog*> DialogManager::CreateDialog(List<std::string> texts)
 	return rList;
 }
 
+bool DialogManager::ShowDialog(Dialog* dialog)
+{
+
+	std::string actualText = dialog->sentence.substr(0, indexText);
+	
+
+
+	SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
+	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
+	app->render->DrawTexture(textTexture, dialogMargin, 10, 0, 0);
+
+	if (actualText.size() != dialog->sentence.size()) {
+		indexText++;
+		return true;
+	}
+
+	return false;
+}
+
 bool DialogManager::Update(float dt) {
 
 	bool ret = true;
 	if (dialogues.Count() > 0) {
 		//Mostrar dialogos
+		ShowDialog(dialogues.At(0)->data);
 		
-		SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, dialogues.At(0)->data->sentence.c_str(), textColor, 500);
-		SDL_Texture* textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
-		app->render->DrawTexture(textTexture, 10, 10, 0, 0);
 
 
 	}
 	else {
-		CreateDialog("Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO");
+		CreateDialog("Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO");
 	}
 
 

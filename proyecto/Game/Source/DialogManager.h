@@ -30,6 +30,9 @@ public:
 	Dialog* CreateDialog(std::string text);
 	List<Dialog*> CreateDialog(List<std::string> texts);
 
+	bool ShowDialog(Dialog* dialog);
+
+
 	void DestroyDialog(Dialog* dialog);
 
 	void AddDialog(Dialog* dialog);
@@ -40,7 +43,13 @@ public:
 
 
 private:
-	SDL_Color textColor = { 255,255,255,255 };
+	SDL_Color textColor;
+	int textBoundWidth;
+	int dialogMargin;
+	int dialogPadding;
+
+
+	int indexText;
 
 };
 
