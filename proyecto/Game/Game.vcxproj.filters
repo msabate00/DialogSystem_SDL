@@ -1,43 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\Window.cpp" />
-    <ClCompile Include="Source\Textures.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
-    <ClCompile Include="Source\Render.cpp" />
-    <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\Input.cpp" />
-    <ClCompile Include="Source\Audio.cpp" />
-    <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Log.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp">
       <Filter>External\PugiXml</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PerfTimer.cpp" />
-    <ClCompile Include="Source\Timer.cpp" />
-    <ClCompile Include="Source\EntityManager.cpp" />
-    <ClCompile Include="Source\Player.cpp" />
-    <ClCompile Include="Source\Map.cpp" />
-    <ClCompile Include="Source\Item.cpp" />
-    <ClCompile Include="Source\Physics.cpp" />
-    <ClCompile Include="Source\Pathfinding.cpp" />
-    <ClCompile Include="Source\GuiControlButton.cpp" />
-    <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\DialogManager.cpp">
       <Filter>DialogSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Source\App.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Audio.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiControlButton.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiManager.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Item.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Pathfinding.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PerfTimer.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Physics.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Textures.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Timer.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Window.cpp">
+      <Filter>ProyectoBase</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Window.h" />
-    <ClInclude Include="Source\Textures.h" />
-    <ClInclude Include="Source\Scene.h" />
-    <ClInclude Include="Source\Render.h" />
-    <ClInclude Include="Source\Module.h" />
-    <ClInclude Include="Source\Input.h" />
-    <ClInclude Include="Source\Audio.h" />
-    <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\Defs.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -65,26 +93,74 @@
     <ClInclude Include="Source\Queue.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PerfTimer.h" />
-    <ClInclude Include="Source\Timer.h" />
-    <ClInclude Include="Source\Entity.h" />
-    <ClInclude Include="Source\EntityManager.h" />
-    <ClInclude Include="Source\Player.h" />
-    <ClInclude Include="Source\Map.h" />
-    <ClInclude Include="Source\Item.h" />
-    <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\PQueue.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Pathfinding.h" />
-    <ClInclude Include="Source\GuiControl.h" />
-    <ClInclude Include="Source\GuiControlButton.h" />
-    <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\Dialog.h">
       <Filter>DialogSystem</Filter>
     </ClInclude>
     <ClInclude Include="Source\DialogManager.h">
       <Filter>DialogSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\App.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Audio.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityManager.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiControl.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiControlButton.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiManager.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Item.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Module.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Pathfinding.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PerfTimer.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Physics.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Textures.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Timer.h">
+      <Filter>ProyectoBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Window.h">
+      <Filter>ProyectoBase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +175,9 @@
     </Filter>
     <Filter Include="DialogSystem">
       <UniqueIdentifier>{4bb480bd-6f9f-4365-9c96-7facb988d31b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProyectoBase">
+      <UniqueIdentifier>{45e33320-6e3a-4b29-9464-51f6b0628ef4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
