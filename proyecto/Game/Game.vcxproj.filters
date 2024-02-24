@@ -23,6 +23,11 @@
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
+    <ClCompile Include="Source\GuiControlButton.cpp" />
+    <ClCompile Include="Source\GuiManager.cpp" />
+    <ClCompile Include="Source\DialogManager.cpp">
+      <Filter>DialogSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -72,6 +77,15 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Pathfinding.h" />
+    <ClInclude Include="Source\GuiControl.h" />
+    <ClInclude Include="Source\GuiControlButton.h" />
+    <ClInclude Include="Source\GuiManager.h" />
+    <ClInclude Include="Source\Dialog.h">
+      <Filter>DialogSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DialogManager.h">
+      <Filter>DialogSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -82,6 +96,9 @@
     </Filter>
     <Filter Include="External\PugiXml">
       <UniqueIdentifier>{2855ff7f-53a1-413d-a75b-18b4ade921dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DialogSystem">
+      <UniqueIdentifier>{4bb480bd-6f9f-4365-9c96-7facb988d31b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
