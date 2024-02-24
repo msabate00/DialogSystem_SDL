@@ -24,14 +24,14 @@ bool DialogManager::Awake(pugi::xml_node config)
 	bool ret = true;
 
 	//Iterates over the entities and calls the Awake
-	ListItem<Entity*>* item;
-	Entity* pEntity = NULL;
+	ListItem<Dialog*>* item;
+	Dialog* pDialog = NULL;
 
-	for (item = entities.start; item != NULL && ret == true; item = item->next)
+	for (item = dialogues.start; item != NULL && ret == true; item = item->next)
 	{
-		pEntity = item->data;
+		pDialog = item->data;
 
-		if (pEntity->active == false) continue;
+		if (pDialog->active == false) continue;
 		ret = item->data->Awake();
 	}
 
@@ -44,14 +44,14 @@ bool DialogManager::Start() {
 	bool ret = true; 
 
 	//Iterates over the entities and calls Start
-	ListItem<Entity*>* item;
-	Entity* pEntity = NULL;
+	ListItem<Dialog*>* item;
+	Dialog* pDialog = NULL;
 
-	for (item = entities.start; item != NULL && ret == true; item = item->next)
+	for (item = dialogues.start; item != NULL && ret == true; item = item->next)
 	{
-		pEntity = item->data;
+		pDialog = item->data;
 
-		if (pEntity->active == false) continue;
+		if (pDialog->active == false) continue;
 		ret = item->data->Start();
 	}
 
@@ -62,8 +62,8 @@ bool DialogManager::Start() {
 bool DialogManager::CleanUp()
 {
 	bool ret = true;
-	ListItem<Entity*>* item;
-	item = entities.end;
+	ListItem<Dialog*>* item;
+	item = dialogues.end;
 
 	while (item != NULL && ret == true)
 	{
@@ -71,61 +71,88 @@ bool DialogManager::CleanUp()
 		item = item->prev;
 	}
 
-	entities.Clear();
+	dialogues.Clear();
 
 	return ret;
 }
 
-Entity* DialogManager::CreateEntity(EntityType type)
+Dialog* DialogManager::CreateDialog(std::string text)
 {
-	Entity* entity = nullptr; 
+	Dialog* dialog = new Dialog(text);
 
-	//L03: DONE 3a: Instantiate entity according to the type and add the new entity to the list of Entities
-	switch (type)
+	dialogues.Add(dialog);
+
+	return dialog;
+}
+
+List<Dialog*> DialogManager::CreateDialog(List<std::string> texts)
+{
+	List<Dialog*> rList;
+
+	
+	ListItem<std::string>* item;
+	std::string pString = NULL;
+
+	for (item = texts.start; item != NULL; item = item->next)
 	{
-	case EntityType::PLAYER:
-		entity = new Player();
-		break;
-	case EntityType::ITEM:
-		entity = new Item();
-		break;
-	default:
-		break;
+		pString = item->data;
+		rList.Add(CreateDialog(pString));
 	}
 
-	entities.Add(entity);
 
-	return entity;
+	return rList;
 }
-
-void DialogManager::DestroyEntity(Entity* entity)
-{
-	ListItem<Entity*>* item;
-
-	for (item = entities.start; item != NULL; item = item->next)
-	{
-		if (item->data == entity) entities.Del(item);
-	}
-}
-
-void DialogManager::AddEntity(Entity* entity)
-{
-	if ( entity != nullptr) entities.Add(entity);
-}
-
-bool DialogManager::Update(float dt)
-{
-	bool ret = true;
-	ListItem<Entity*>* item;
-	Entity* pEntity = NULL;
-
-	for (item = entities.start; item != NULL && ret == true; item = item->next)
-	{
-		pEntity = item->data;
-
-		if (pEntity->active == false) continue;
-		ret = item->data->Update(dt);
-	}
-
-	return ret;
-}
+//
+//Entity* DialogManager::CreateEntity(EntityType type)
+//{
+//	Entity* entity = nullptr; 
+//
+//	//L03: DONE 3a: Instantiate entity according to the type and add the new entity to the list of Entities
+//	switch (type)
+//	{
+//	case EntityType::PLAYER:
+//		entity = new Player();
+//		break;
+//	case EntityType::ITEM:
+//		entity = new Item();
+//		break;
+//	default:
+//		break;
+//	}
+//
+//	entities.Add(entity);
+//
+//	return entity;
+//}
+//
+//void DialogManager::DestroyEntity(Entity* entity)
+//{
+//	ListItem<Entity*>* item;
+//
+//	for (item = entities.start; item != NULL; item = item->next)
+//	{
+//		if (item->data == entity) entities.Del(item);
+//	}
+//}
+//
+//void DialogManager::AddEntity(Entity* entity)
+//{
+//	if ( entity != nullptr) entities.Add(entity);
+//}
+//
+//bool DialogManager::Update(float dt)
+//{
+//	bool ret = true;
+//	ListItem<Entity*>* item;
+//	Entity* pEntity = NULL;
+//
+//	for (item = entities.start; item != NULL && ret == true; item = item->next)
+//	{
+//		pEntity = item->data;
+//
+//		if (pEntity->active == false) continue;
+//		ret = item->data->Update(dt);
+//	}
+//
+//	return ret;
+//}

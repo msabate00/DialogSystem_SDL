@@ -19,7 +19,7 @@ class Dialog
 {
 public:
 
-	Dialog(DialogType type) : type(type), active(false) {}
+	Dialog(std::string sentence) : type(type), active(false), sentence(sentence) {}
 
 	virtual bool Awake()
 	{
@@ -80,7 +80,7 @@ public:
 	bool active = false;
 	pugi::xml_node parameters;
 
-	List<std::string> sentences;
+	std::string sentence;
 	
 
 	// Possible properties, it depends on how generic we
