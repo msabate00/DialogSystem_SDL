@@ -28,7 +28,7 @@ public:
 
 	// Additional methods
 	Dialog* CreateDialog(std::string text);
-	List<Dialog*> CreateDialog(List<std::string> texts);
+	
 
 	bool ShowDialog(Dialog* dialog);
 

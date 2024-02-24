@@ -333,6 +333,19 @@ void Physics::BeginContact(b2Contact* contact)
 		physB->listener->OnCollision(physB, physA);
 }
 
+/*NEW*/
+void Physics::EndContact(b2Contact* contact)
+{
+	PhysBody* physA = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
+	PhysBody* physB = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
+
+	if (physA && physA->listener != NULL)
+		physA->listener->OnExitCollision(physA, physB);
+
+	if (physB && physB->listener != NULL)
+		physB->listener->OnExitCollision(physB, physA);
+}
+
 //--------------- PhysBody
 
 void PhysBody::GetPosition(int& x, int& y) const

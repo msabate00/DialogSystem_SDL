@@ -62,6 +62,7 @@ bool DialogManager::Start() {
 	dialogMargin = 20;
 
 	textColor = { 255,255,255,255 };
+	textColor = { 0,0,0,255 };
 	textBoundWidth = windowW - dialogMargin;
 
 
@@ -95,24 +96,6 @@ Dialog* DialogManager::CreateDialog(std::string text)
 	dialogues.Add(dialog);
 
 	return dialog;
-}
-
-List<Dialog*> DialogManager::CreateDialog(List<std::string> texts)
-{
-	List<Dialog*> rList;
-
-	
-	ListItem<std::string>* item;
-	std::string pString = NULL;
-
-	for (item = texts.start; item != NULL; item = item->next)
-	{
-		pString = item->data;
-		rList.Add(CreateDialog(pString));
-	}
-
-
-	return rList;
 }
 
 bool DialogManager::ShowDialog(Dialog* dialog)
@@ -157,13 +140,16 @@ bool DialogManager::Update(float dt) {
 
 
 		}
-		else if (!dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		else if (!dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && indexText > 2) {
 			//Finish dialogue
 			indexText = 999;
 		}
 		
 
 
+	}
+	else {
+		indexText = 1;
 	}
 	/*else {
 		CreateDialog("Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO");

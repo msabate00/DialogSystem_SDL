@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Point.h"
+#include "DialogTriggerEntity.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
@@ -25,6 +26,7 @@ public:
 
 	// L07 DONE 6: Define OnCollision function for the player. 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
+	void OnExitCollision(PhysBody* physA, PhysBody* physB); /*NEW*/
 
 public:
 
@@ -38,6 +40,10 @@ public:
 	int pickCoinFxId;
 
 	PhysBody* pbody;
+
+	/*NEW*/
+	bool contactDialogTrigger = false;
+	DialogTrigger* dialogTriggerContact = nullptr;
 
 };
 

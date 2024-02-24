@@ -1,7 +1,9 @@
 #ifndef __DIALOGTRIGGERENTITY_H__
 #define __DIALOGTRIGGERENTITY_H__
 
+#include <string>
 #include "Entity.h"
+#include "List.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
 
@@ -22,6 +24,8 @@ public:
 
 	bool CleanUp();
 
+	void PlayDialog();
+
 public:
 
 	bool isPicked = false;
@@ -33,6 +37,9 @@ private:
 	uint texW, texH;
 
 	PhysBody* pbody;
+
+	List<std::string> sentences;
+
 };
 
 #endif // __DIALOGTRIGGERENTITY_H__

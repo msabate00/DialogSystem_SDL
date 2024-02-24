@@ -47,6 +47,8 @@ bool Scene::Awake(pugi::xml_node config)
 		item->parameters = itemNode;
 	}
 
+	/*NEW*/
+
 	for (pugi::xml_node itemNode = config.child("dialogTrigger"); itemNode; itemNode = itemNode.next_sibling("dialogTrigger"))
 	{
 		DialogTrigger* dialogTrigger = (DialogTrigger*)app->entityManager->CreateEntity(EntityType::DIALOG_TRIGGER);

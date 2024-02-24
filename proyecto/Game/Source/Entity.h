@@ -10,7 +10,7 @@ enum class EntityType
 {
 	PLAYER,
 	ITEM,
-	DIALOG_TRIGGER,
+	DIALOG_TRIGGER, /*NEW*/
 	UNKNOWN
 };
 
@@ -71,6 +71,11 @@ public:
 	}
 
 	virtual void OnCollision(PhysBody* physA, PhysBody* physB) {
+
+	};
+
+	/*NEW*/
+	virtual void OnExitCollision(PhysBody* physA, PhysBody* physB) {
 
 	};
 

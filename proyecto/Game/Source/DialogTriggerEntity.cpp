@@ -1,4 +1,5 @@
 #include "DialogTriggerEntity.h"
+#include "DialogManager.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -21,6 +22,14 @@ bool DialogTrigger::Awake() {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
+
+
+	for (pugi::xml_node itemNode = parameters.child("sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
+	{
+		sentences.Add(itemNode.attribute("text").as_string());
+	}
+
+
 
 	return true;
 }
@@ -47,4 +56,19 @@ bool DialogTrigger::Update(float dt)
 bool DialogTrigger::CleanUp()
 {
 	return true;
+}
+
+void DialogTrigger::PlayDialog()
+{
+
+	ListItem<std::string>* item;
+	std::string pString = "";
+
+	for (item = sentences.start; item != NULL; item = item->next)
+	{
+		pString = item->data;
+		app->dialogManager->CreateDialog(pString);
+	}
+
+
 }

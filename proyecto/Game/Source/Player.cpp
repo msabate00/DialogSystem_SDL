@@ -8,6 +8,8 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "DialogTriggerEntity.h"
+#include "DialogManager.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -66,6 +68,20 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 
+
+
+	/*NEW*/
+	if (contactDialogTrigger && !app->dialogManager->isPlaying && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		dialogTriggerContact->PlayDialog();
+	}
+
+
+
+
+
+
+
+
 	app->render->DrawTexture(texture, position.x, position.y);
 
 	return true;
@@ -90,7 +106,32 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
+
+
+	/*NEW*/
+	case ColliderType::DIALOG_TRIGGER:
+
+		LOG("DIALOG TRIGGEEEEEEEEEEEER");
+		contactDialogTrigger = true;
+		dialogTriggerContact = (DialogTrigger*)physB->listener;
+		break;
+
 	default:
+		break;
+	}
+}
+
+
+/*NEW*/
+void Player::OnExitCollision(PhysBody* physA, PhysBody* physB)
+{
+	switch (physB->ctype) {
+	case ColliderType::DIALOG_TRIGGER:
+
+		
+		LOG("FIIIIIN DIALOG TRIGGEEEEEEEEEEEER");
+		contactDialogTrigger = false;
+		dialogTriggerContact = nullptr;
 		break;
 	}
 }

@@ -29,7 +29,7 @@
 
 	  <dialogTrigger x="300" y="672" texturepath="Assets/Textures/player2.png">
 		  <sentences>
-			  <sentence text="Sabes que se pregunta las cerezas cuando se miran en espejos? -Ceré eza?"/>
+			  <sentence text="Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza?"/>
 			  <sentence text="Sabes como se llama el hermano limpio de bruce willis? -Kevin Willis"/>
 		  </sentences>
 	  </dialogTrigger>
@@ -38,7 +38,6 @@
 	  <dialogTrigger x="450" y="672" texturepath="Assets/Textures/player2.png">
 		  <sentences>
 			  <sentence text="Madremia el humor JUAS JUAS JUAS JUAS"/>
-			  <sentence text="( ͡~ ͜ʖ ͡°)"/>
 		  </sentences>
 	  </dialogTrigger>
   </scene>

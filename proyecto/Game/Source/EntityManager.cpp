@@ -90,6 +90,8 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::ITEM:
 		entity = new Item();
 		break;
+
+	/*NEW*/
 	case EntityType::DIALOG_TRIGGER:
 		entity = new DialogTrigger();
 		break;

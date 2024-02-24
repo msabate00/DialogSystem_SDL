@@ -37,12 +37,6 @@
     <ClCompile Include="Source\PerfTimer.cpp">
       <Filter>ProyectoBase</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Physics.cpp">
-      <Filter>ProyectoBase</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
-      <Filter>ProyectoBase</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Render.cpp">
       <Filter>ProyectoBase</Filter>
     </ClCompile>
@@ -65,6 +59,12 @@
       <Filter>ArchivosModificados</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene.cpp">
+      <Filter>ArchivosModificados</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Physics.cpp">
+      <Filter>ArchivosModificados</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
       <Filter>ArchivosModificados</Filter>
     </ClCompile>
   </ItemGroup>
@@ -138,12 +138,6 @@
     <ClInclude Include="Source\PerfTimer.h">
       <Filter>ProyectoBase</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Physics.h">
-      <Filter>ProyectoBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Player.h">
-      <Filter>ProyectoBase</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Render.h">
       <Filter>ProyectoBase</Filter>
     </ClInclude>
@@ -166,6 +160,12 @@
       <Filter>DialogSystem</Filter>
     </ClInclude>
     <ClInclude Include="Source\Entity.h">
+      <Filter>ArchivosModificados</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Physics.h">
+      <Filter>ArchivosModificados</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
       <Filter>ArchivosModificados</Filter>
     </ClInclude>
   </ItemGroup>
