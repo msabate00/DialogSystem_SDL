@@ -26,6 +26,8 @@
     <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
+
+	<dialogTrigger x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
   </scene>
   
 </config>

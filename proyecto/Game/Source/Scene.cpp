@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Map.h"
 #include "Item.h"
+#include "DialogTriggerEntity.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -44,6 +45,12 @@ bool Scene::Awake(pugi::xml_node config)
 	{
 		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 		item->parameters = itemNode;
+	}
+
+	for (pugi::xml_node itemNode = config.child("dialogTrigger"); itemNode; itemNode = itemNode.next_sibling("dialogTrigger"))
+	{
+		DialogTrigger* dialogTrigger = (DialogTrigger*)app->entityManager->CreateEntity(EntityType::DIALOG_TRIGGER);
+		dialogTrigger->parameters = itemNode;
 	}
 
 	return ret;

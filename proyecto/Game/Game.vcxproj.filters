@@ -13,9 +13,6 @@
     <ClCompile Include="Source\Audio.cpp">
       <Filter>ProyectoBase</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EntityManager.cpp">
-      <Filter>ProyectoBase</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GuiControlButton.cpp">
       <Filter>ProyectoBase</Filter>
     </ClCompile>
@@ -49,9 +46,6 @@
     <ClCompile Include="Source\Render.cpp">
       <Filter>ProyectoBase</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene.cpp">
-      <Filter>ProyectoBase</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Textures.cpp">
       <Filter>ProyectoBase</Filter>
     </ClCompile>
@@ -62,6 +56,15 @@
       <Filter>ProyectoBase</Filter>
     </ClCompile>
     <ClCompile Include="Source\App.cpp">
+      <Filter>ArchivosModificados</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DialogTriggerEntity.cpp">
+      <Filter>DialogSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>ArchivosModificados</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
       <Filter>ArchivosModificados</Filter>
     </ClCompile>
   </ItemGroup>
@@ -103,9 +106,6 @@
       <Filter>DialogSystem</Filter>
     </ClInclude>
     <ClInclude Include="Source\Audio.h">
-      <Filter>ProyectoBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity.h">
       <Filter>ProyectoBase</Filter>
     </ClInclude>
     <ClInclude Include="Source\EntityManager.h">
@@ -160,6 +160,12 @@
       <Filter>ProyectoBase</Filter>
     </ClInclude>
     <ClInclude Include="Source\App.h">
+      <Filter>ArchivosModificados</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DialogTriggerEntity.h">
+      <Filter>DialogSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
       <Filter>ArchivosModificados</Filter>
     </ClInclude>
   </ItemGroup>
