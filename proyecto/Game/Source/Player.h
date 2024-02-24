@@ -37,6 +37,8 @@ public:
 	//Audio fx
 	int pickCoinFxId;
 
+	PhysBody* pbody;
+
 };
 
 #endif // __PLAYER_H__

@@ -65,7 +65,7 @@ bool DialogManager::Start() {
 	textBoundWidth = windowW - dialogMargin;
 
 
-	indexText = 0;
+	indexText = 1;
 
 	return ret;
 }
@@ -126,6 +126,10 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
 	app->render->DrawTexture(textTexture, dialogMargin + dialogPosition.x, dialogPosition.y, 0, 0);
 
+	//Optimizacion de la memoria
+	SDL_FreeSurface(textSurface);
+	SDL_DestroyTexture(textTexture);
+
 	if (actualText.size() < dialog->sentence.size()) {
 		indexText++;
 		return false;
@@ -145,7 +149,7 @@ bool DialogManager::Update(float dt) {
 
 		if (dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 			//Next dialogue
-			indexText = 0;
+			indexText = 1;
 			dialogues.Del(dialogues.At(0));
 
 
