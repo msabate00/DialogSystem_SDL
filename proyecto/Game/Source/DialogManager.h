@@ -41,6 +41,8 @@ public:
 
 	List<Dialog*> dialogues;
 
+	bool isPlaying;
+
 
 private:
 	SDL_Color textColor;

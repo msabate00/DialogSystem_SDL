@@ -31,6 +31,8 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 	uint texW, texH;
+
+	PhysBody* pbody;
 };
 
 #endif // __DIALOGTRIGGERENTITY_H__

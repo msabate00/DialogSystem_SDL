@@ -30,6 +30,10 @@ bool DialogTrigger::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
+	pbody = app->physics->CreateRectangleSensor(position.x+10, position.y, 100, 100, bodyType::KINEMATIC);
+	pbody->listener = this;
+	pbody->ctype = ColliderType::DIALOG_TRIGGER;
+
 	return true;
 }
 

@@ -24,9 +24,10 @@ enum bodyType {
 };
 
 enum class ColliderType {
-	PLAYER, 
+	PLAYER,
 	ITEM,
-	PLATFORM, 
+	PLATFORM,
+	DIALOG_TRIGGER,
 	UNKNOWN
 	// ..
 };

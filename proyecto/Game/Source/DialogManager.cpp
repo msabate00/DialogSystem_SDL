@@ -141,7 +141,10 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 bool DialogManager::Update(float dt) {
 
 	bool ret = true;
-	if (dialogues.Count() > 0) {
+
+	isPlaying = (dialogues.Count() > 0);
+
+	if (isPlaying) {
 		//Mostrar dialogos
 
 		bool dialogFinished = ShowDialog(dialogues.At(0)->data);
@@ -162,10 +165,10 @@ bool DialogManager::Update(float dt) {
 
 
 	}
-	else {
+	/*else {
 		CreateDialog("Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO");
 		CreateDialog("jaja texto numero dos jaja");
-	}
+	}*/
 
 
 
