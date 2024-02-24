@@ -49,6 +49,7 @@ private:
 	int dialogPadding;
 
 
+	iPoint dialogPosition = { 0 , 200 };
 	int indexText;
 
 };

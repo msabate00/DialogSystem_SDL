@@ -124,14 +124,14 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 
 	SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
 	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
-	app->render->DrawTexture(textTexture, dialogMargin, 10, 0, 0);
+	app->render->DrawTexture(textTexture, dialogMargin + dialogPosition.x, dialogPosition.y, 0, 0);
 
-	if (actualText.size() != dialog->sentence.size()) {
+	if (actualText.size() < dialog->sentence.size()) {
 		indexText++;
-		return true;
+		return false;
 	}
 
-	return false;
+	return true;
 }
 
 bool DialogManager::Update(float dt) {
@@ -139,13 +139,28 @@ bool DialogManager::Update(float dt) {
 	bool ret = true;
 	if (dialogues.Count() > 0) {
 		//Mostrar dialogos
-		ShowDialog(dialogues.At(0)->data);
+
+		bool dialogFinished = ShowDialog(dialogues.At(0)->data);
+
+
+		if (dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+			//Next dialogue
+			indexText = 0;
+			dialogues.Del(dialogues.At(0));
+
+
+		}
+		else if (!dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+			//Finish dialogue
+			indexText = 999;
+		}
 		
 
 
 	}
 	else {
 		CreateDialog("Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO");
+		CreateDialog("jaja texto numero dos jaja");
 	}
 
 
