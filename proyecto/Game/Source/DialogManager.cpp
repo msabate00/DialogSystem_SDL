@@ -102,6 +102,32 @@ List<Dialog*> DialogManager::CreateDialog(List<std::string> texts)
 
 	return rList;
 }
+
+bool DialogManager::Update(float dt) {
+
+	bool ret = true;
+	if (dialogues.Count() > 0) {
+		//Mostrar dialogos
+		
+		SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, dialogues.At(0)->data->sentence.c_str(), textColor, 500);
+		SDL_Texture* textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
+		app->render->DrawTexture(textTexture, 10, 10, 0, 0);
+
+
+	}
+	else {
+		CreateDialog("Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO");
+	}
+
+
+
+
+	return ret;
+
+}
+
+
+
 //
 //Entity* DialogManager::CreateEntity(EntityType type)
 //{

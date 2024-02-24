@@ -38,6 +38,10 @@ public:
 
 	List<Dialog*> dialogues;
 
+
+private:
+	SDL_Color textColor = { 255,255,255,255 };
+
 };
 
 #endif // __DIALOGMANAGER_H__

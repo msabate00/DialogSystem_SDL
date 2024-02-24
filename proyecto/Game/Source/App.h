@@ -24,6 +24,9 @@ class Map;
 class Physics;
 class GuiManager;
 
+/*NEW*/
+class DialogManager;
+
 class App
 {
 public:
@@ -106,6 +109,9 @@ public:
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
 	GuiManager* guiManager;
+
+	/*NEW*/
+	DialogManager* dialogManager;
 
 private:
 

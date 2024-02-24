@@ -9,6 +9,9 @@
 #include "Physics.h"
 #include "GuiManager.h"
 
+/*NEW*/
+#include "DialogManager.h"
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -40,6 +43,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager();
 	guiManager = new GuiManager();
 
+	/*NEW*/
+	dialogManager = new DialogManager();
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(win);
@@ -53,6 +59,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(entityManager);
 	AddModule(guiManager);
+
+	/*NEW*/
+	AddModule(dialogManager);
 
 	// Render last to swap buffer
 	AddModule(render);
