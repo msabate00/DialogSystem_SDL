@@ -87,6 +87,8 @@ bool DialogManager::AddDialog(Dialog* dialog)
 
 bool DialogManager::ShowDialog(Dialog* dialog)
 {
+	//Motras fondo
+	app->render->DrawTexture(background_tex, dialogPosition.x, dialogPosition.y, 0, 0);
 
 	std::string actualText = dialog->sentence.substr(0, indexText);
 	
@@ -96,6 +98,12 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 
 	SDL_Surface* textNameSurface;
 	SDL_Texture* textNameTexture;
+
+	SDL_Surface* options1NameSurface;
+	SDL_Texture* options1NameTexture;
+	
+	SDL_Surface* options2NameSurface;
+	SDL_Texture* options2NameTexture;
 
 
 	if (dialog->face_tex != nullptr) { 	//Dialogo con imagen
@@ -120,6 +128,24 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	textNameTexture = SDL_CreateTextureFromSurface(app->render->renderer, textNameSurface);
 
 	app->render->DrawTexture(textNameTexture, dialogMargin[3] + namePosition.x, dialogMargin[0] + namePosition.y, 0, 0);
+
+
+	//Opciones
+	if (dialog->type == DialogType::CHOOSE) {
+
+		options1NameSurface = TTF_RenderText_Blended_Wrapped(app->render->font, dialog->option1.c_str(), textColor, textBoundWidth);
+		options1NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options1NameSurface);
+
+		app->render->DrawTexture(options1NameTexture, dialogMargin[3] + dialogPosition.x + 400, dialogMargin[0] + dialogPosition.y + 50, 0, 0);
+
+
+		options2NameSurface = TTF_RenderText_Blended_Wrapped(app->render->font, dialog->option2.c_str(), textColor, textBoundWidth);
+		options2NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options2NameSurface);
+
+		app->render->DrawTexture(options2NameTexture, dialogMargin[3] + dialogPosition.x + 400, dialogMargin[0] + dialogPosition.y + 100, 0, 0);
+	}
+
+
 	
 
 	//Optimizacion de la memoria
@@ -154,16 +180,26 @@ bool DialogManager::Update(float dt) {
 	if (isPlaying) {
 		//Mostrar dialogos
 
-		//Motras fondo
-		app->render->DrawTexture(background_tex, dialogPosition.x, dialogPosition.y);
+		Dialog* actualDialog = dialogues.At(0)->data;
 
-		bool dialogFinished = ShowDialog(dialogues.At(0)->data);
+		bool dialogFinished = ShowDialog(actualDialog);
 
 
 		if (dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 			//Next dialogue
-			indexText = 1;
-			dialogues.Del(dialogues.At(0));
+			if (actualDialog->type == DialogType::CHOOSE) {
+				
+				//Pulsar un numero
+				//Añadir a la lista de dialogos el dialogo por detrsa del 0, eliminar el 0.
+				//poner el index del texto a 1
+				// borrar el dialogo en la posicion 0
+
+			}
+			else {
+				indexText = 1;
+				dialogues.Del(dialogues.At(0));
+			}
+			
 
 
 		}

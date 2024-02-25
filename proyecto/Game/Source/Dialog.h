@@ -87,6 +87,10 @@ public:
 	SDL_Texture* face_tex = nullptr;
 	const char* face_tex_path;
 
+
+	std::string option1;
+	std::string option2;
+
 	List<Dialog*> options1;
 	List<Dialog*> options2;
 	

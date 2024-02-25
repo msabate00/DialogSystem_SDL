@@ -62,9 +62,9 @@
 
 
 
-	  <dialogTrigger x="630" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="El gracioso">
+	  <dialogTrigger x="630" y="672" texturepath="Assets/Textures/player5.png"  facetexturepath="Assets/Textures/player5_face.png" name="Concursillo">
 		  <sentences>
-			  <sentence text="En que piensan siempre los hombres?">
+			  <sentence type="choose" text="En que piensan siempre los hombres?">
 				  <option1 text="Imperio Romano">
 					  <sentence text="Es correcto, todo el mundo lo sabe, es de pura logica." />
 				  </option1>
@@ -72,7 +72,7 @@
 					  <sentence text="Mal mal mal mal, para los hombres el Imperio Romano significa TODO"/>
 				  </option2>
 			  </sentence>
-			  <sentence text="Continuemos... \n Si un tren viaja a 254km/h desde Madrid hasta Albacete, cuantas manzanas a robado Guillem?">
+			  <sentence type="choose" text="Continuemos... \n Si un tren viaja a 254km/h desde Madrid hasta Albacete, cuantas manzanas a robado Guillem?">
 				  <option1 text="Azul">
 					  <sentence text="Es un color bonito si, pero no es la respuesta correcta... Bueno, ninguna lo era" />
 				  </option1>
