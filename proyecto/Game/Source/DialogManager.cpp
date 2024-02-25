@@ -79,6 +79,12 @@ Dialog* DialogManager::CreateDialog(std::string text, SDL_Texture* faceTexture)
 	return dialog;
 }
 
+bool DialogManager::AddDialog(Dialog* dialog)
+{
+	dialogues.Add(dialog);
+	return true;
+}
+
 bool DialogManager::ShowDialog(Dialog* dialog)
 {
 
@@ -109,10 +115,10 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	}
 
 	//Nombre personaje
-	textNameSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
-	textNameTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
+	textNameSurface = TTF_RenderText_Blended_Wrapped(app->render->font, dialog->name.c_str(), textColor, textBoundWidth);
+	textNameTexture = SDL_CreateTextureFromSurface(app->render->renderer, textNameSurface);
 
-
+	app->render->DrawTexture(textNameTexture, dialogMargin[3] + namePosition.x, dialogMargin[0] + namePosition.y, 0, 0);
 	
 
 	//Optimizacion de la memoria

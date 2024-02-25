@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Entity.h"
+#include "Dialog.h"
 #include "List.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
@@ -42,7 +43,7 @@ private:
 
 	PhysBody* pbody;
 
-	List<std::string> sentences;
+	List<Dialog*> dialogues;
 
 };
 

@@ -26,7 +26,16 @@ bool DialogTrigger::Awake() {
 
 	for (pugi::xml_node itemNode = parameters.child("sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
 	{
-		sentences.Add(itemNode.attribute("text").as_string());
+		//sentences.Add(itemNode.attribute("text").as_string());
+		
+		Dialog* dialog = new Dialog(itemNode.attribute("text").as_string());
+		dialog->name = parameters.attribute("name").as_string();
+		dialog->name = itemNode.attribute("name").as_string(dialog->name.c_str());
+		//dialog->face_tex = faceTexture;
+
+
+		dialogues.Add(dialog);
+
 	}
 
 
@@ -70,13 +79,23 @@ bool DialogTrigger::CleanUp()
 void DialogTrigger::PlayDialog()
 {
 
-	ListItem<std::string>* item;
+	/*ListItem<std::string>* item;
 	std::string pString = "";
 
 	for (item = sentences.start; item != NULL; item = item->next)
 	{
 		pString = item->data;
 		app->dialogManager->CreateDialog(pString, faceTexture);
+	}*/
+
+	ListItem<Dialog*>* item;
+	Dialog* pDialog = nullptr;
+
+	for (item = dialogues.start; item != NULL; item = item->next)
+	{
+		pDialog = item->data;
+		pDialog->face_tex = faceTexture;
+		app->dialogManager->AddDialog(pDialog);
 	}
 
 

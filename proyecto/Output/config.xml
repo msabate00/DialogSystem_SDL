@@ -27,7 +27,7 @@
     <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
 
-	  <dialogTrigger x="290" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="El gracioso">
+	  <dialogTrigger x="90" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="El gracioso">
 		  <sentences>
 			  <sentence text="Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza?"/>
 			  <sentence text="Sabes como se llama el hermano limpio de bruce willis? -Kevin Willis"/>
@@ -35,13 +35,19 @@
 	  </dialogTrigger>
 
 
-	  <dialogTrigger x="400" y="672" texturepath="Assets/Textures/player3.png" facetexturepath="Assets/Textures/player3_face.png" name="GigaChad">
+	  <dialogTrigger x="200" y="672" texturepath="Assets/Textures/player3.png" facetexturepath="Assets/Textures/player3_face.png" name="GigaChad">
 		  <sentences>
 			  <sentence text="Madremia el humor JUAS JUAS JUAS JUAS"/>
 		  </sentences>
 	  </dialogTrigger>
 
-	  <dialogTrigger x="510" y="672" texturepath="Assets/Textures/player4.png" name="Sin foto :v">
+	  <dialogTrigger x="310" y="672" texturepath="Assets/Textures/player4.png" name="Sin foto :v">
+		  <sentences>
+			  <sentence text="Incluso se a contemplado un dialogo sin cara! Maravilloso"/>
+		  </sentences>
+	  </dialogTrigger>
+
+	  <dialogTrigger x="420" y="672" texturepath="Assets/Textures/cats.png" name="miau">
 		  <sentences>
 			  <sentence text="Incluso se a contemplado un dialogo sin cara! Maravilloso"/>
 		  </sentences>

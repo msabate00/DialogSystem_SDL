@@ -2,7 +2,6 @@
 #define __DIALOG_H__
 
 #include "Point.h"
-#include "SString.h"
 #include "Input.h"
 #include "Render.h"
 
@@ -75,14 +74,16 @@ public:
 
 public:
 
-	SString name;
+
 	DialogType type;
 	bool active = false;
 	pugi::xml_node parameters;
-
-	std::string sentence;
 	
+	std::string sentence;
+	std::string name;
+
 	SDL_Texture* face_tex = nullptr;
+	const char* face_tex_path;
 	
 
 	// Possible properties, it depends on how generic we
