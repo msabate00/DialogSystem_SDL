@@ -185,22 +185,34 @@ bool DialogManager::Update(float dt) {
 		bool dialogFinished = ShowDialog(actualDialog);
 
 
-		if (dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		if (dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && actualDialog->type != DialogType::CHOOSE) {
 			//Next dialogue
-			if (actualDialog->type == DialogType::CHOOSE) {
-				
-				//Pulsar un numero
-				//Añadir a la lista de dialogos el dialogo por detrsa del 0, eliminar el 0.
-				//poner el index del texto a 1
-				// borrar el dialogo en la posicion 0
+			
+			indexText = 1;
+			dialogues.Del(dialogues.At(0));
+			
+			
 
+
+		}
+		else if (dialogFinished && (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) && actualDialog->type == DialogType::CHOOSE) {
+		
+			//Pulsar un numero
+			//Añadir a la lista de dialogos el dialogo por detrsa del 0, eliminar el 0.
+			//poner el index del texto a 1
+			// borrar el dialogo en la posicion 0
+			if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+				dialogues.InsertAfter(0, actualDialog->options1);
 			}
-			else {
-				indexText = 1;
-				dialogues.Del(dialogues.At(0));
+			else if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+				dialogues.InsertAfter(0, actualDialog->options2);
 			}
 			
 
+
+
+			indexText = 1;
+			dialogues.Del(dialogues.At(0));
 
 		}
 		else if (!dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && indexText > 2) {
