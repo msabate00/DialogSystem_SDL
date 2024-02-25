@@ -47,9 +47,16 @@
 		  </sentences>
 	  </dialogTrigger>
 
-	  <dialogTrigger x="420" y="672" texturepath="Assets/Textures/cats.png" name="miau">
+	  <dialogTrigger x="420" y="672" texturepath="Assets/Textures/cats.png">
 		  <sentences>
-			  <sentence text="Incluso se a contemplado un dialogo sin cara! Maravilloso"/>
+			  <sentence name="Destructor de galaxias"	facetexturepath="Assets/Textures/cats_face1.png" text="miau miau miau"/>
+			  <sentence name="Albondiga"				facetexturepath="Assets/Textures/cats_face2.png" text="miau"/>
+			  <sentence name="Destructor de galaxias"	facetexturepath="Assets/Textures/cats_face1.png" text="miau miau MIAAAAU!"/>
+			  <sentence name="Albondiga"				facetexturepath="Assets/Textures/cats_face2_1.png" text="miau..."/>
+			  <sentence name="Narrador"					text="Podemos ver que albondiga se ha puesto triste por culpa de lo que ha dicho el destructor de galaxias..., como lo solucionara?"/>
+			  <sentence name="Destructor de galaxias"	facetexturepath="Assets/Textures/cats_face1.png" text="miau &lt;3?"/>
+			  <sentence name="Albondiga"				facetexturepath="Assets/Textures/cats_face2_2.png" text="&lt;3&lt;3&lt;3 prrrrrrrrr &lt;3&lt;3&lt;3"/>
+			  <sentence name="Narrador"					text="Pues ya estan con las paces, a otra cosa..."/>
 		  </sentences>
 	  </dialogTrigger>
   </scene>

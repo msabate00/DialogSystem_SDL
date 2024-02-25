@@ -97,8 +97,8 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	SDL_Surface* textNameSurface;
 	SDL_Texture* textNameTexture;
 
-	//Dialogo
-	if (dialog->face_tex != nullptr) {
+
+	if (dialog->face_tex != nullptr) { 	//Dialogo con imagen
 
 		textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth - faceTextureSize.x);
 		textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
@@ -106,13 +106,14 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 		app->render->DrawTexture(dialog->face_tex, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
 		app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x + faceTextureSize.x, dialogMargin[0] + dialogPosition.y, 0, 0);
 	}
-	else {
+	else { 	//Dialogo sin imagen
 
 		textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
 		textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
 
 		app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
 	}
+
 
 	//Nombre personaje
 	textNameSurface = TTF_RenderText_Blended_Wrapped(app->render->font, dialog->name.c_str(), textColor, textBoundWidth);
@@ -124,6 +125,12 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	//Optimizacion de la memoria
 	SDL_FreeSurface(textSurface);
 	SDL_DestroyTexture(textTexture);
+	SDL_FreeSurface(textNameSurface);
+	SDL_DestroyTexture(textNameTexture);
+
+
+
+
 
 	if (actualText.size() < dialog->sentence.size()) {
 		indexText++;

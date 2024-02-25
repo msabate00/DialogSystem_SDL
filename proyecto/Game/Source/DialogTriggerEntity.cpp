@@ -19,24 +19,7 @@ DialogTrigger::~DialogTrigger() {}
 
 bool DialogTrigger::Awake() {
 
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
-	texturePath = parameters.attribute("texturepath").as_string();
-	faceTexturePath = parameters.attribute("facetexturepath").as_string("");
-
-	for (pugi::xml_node itemNode = parameters.child("sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
-	{
-		//sentences.Add(itemNode.attribute("text").as_string());
-		
-		Dialog* dialog = new Dialog(itemNode.attribute("text").as_string());
-		dialog->name = parameters.attribute("name").as_string();
-		dialog->name = itemNode.attribute("name").as_string(dialog->name.c_str());
-		//dialog->face_tex = faceTexture;
-
-
-		dialogues.Add(dialog);
-
-	}
+	
 
 
 
@@ -45,6 +28,28 @@ bool DialogTrigger::Awake() {
 }
 
 bool DialogTrigger::Start() {
+
+
+
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
+	texturePath = parameters.attribute("texturepath").as_string();
+	faceTexturePath = parameters.attribute("facetexturepath").as_string("");
+
+	for (pugi::xml_node itemNode = parameters.child("sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
+	{
+		//sentences.Add(itemNode.attribute("text").as_string());
+
+		Dialog* dialog = new Dialog(itemNode.attribute("text").as_string());
+		dialog->name = parameters.attribute("name").as_string();
+		dialog->name = itemNode.attribute("name").as_string(dialog->name.c_str());
+		dialog->face_tex = app->tex->Load(itemNode.attribute("facetexturepath").as_string(faceTexturePath));
+
+
+		dialogues.Add(dialog);
+
+	}
+
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
@@ -56,6 +61,9 @@ bool DialogTrigger::Start() {
 	pbody = app->physics->CreateRectangleSensor(position.x+10, position.y, 100, 100, bodyType::KINEMATIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::DIALOG_TRIGGER;
+
+
+
 
 	return true;
 }
@@ -72,6 +80,18 @@ bool DialogTrigger::CleanUp()
 
 	SDL_DestroyTexture(texture);
 	SDL_DestroyTexture(faceTexture);
+
+	ListItem<Dialog*>* item;
+	Dialog* pDialog = nullptr;
+
+	for (item = dialogues.start; item != NULL; item = item->next)
+	{
+		pDialog = item->data;
+		//pDialog->face_tex = faceTexture;
+		SDL_DestroyTexture(pDialog->face_tex);
+	}
+
+	dialogues.Clear();
 
 	return true;
 }
@@ -94,7 +114,7 @@ void DialogTrigger::PlayDialog()
 	for (item = dialogues.start; item != NULL; item = item->next)
 	{
 		pDialog = item->data;
-		pDialog->face_tex = faceTexture;
+		//pDialog->face_tex = faceTexture;
 		app->dialogManager->AddDialog(pDialog);
 	}
 
