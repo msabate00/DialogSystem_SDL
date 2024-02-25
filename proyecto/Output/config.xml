@@ -43,7 +43,7 @@
 
 	  <dialogTrigger x="310" y="672" texturepath="Assets/Textures/player4.png" name="Sin foto :v">
 		  <sentences>
-			  <sentence text="Incluso se a contemplado un dialogo sin cara! Maravilloso"/>
+			  <sentence text="Incluso se ha contemplado un dialogo sin cara! Maravilloso"/>
 		  </sentences>
 	  </dialogTrigger>
 
@@ -59,6 +59,35 @@
 			  <sentence name="Narrador"					text="Pues ya estan con las paces, a otra cosa..."/>
 		  </sentences>
 	  </dialogTrigger>
+
+
+
+	  <dialogTrigger x="630" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="El gracioso">
+		  <sentences>
+			  <sentence text="En que piensan siempre los hombres?">
+				  <option1 text="Imperio Romano">
+					  <sentence text="Es correcto, todo el mundo lo sabe, es de pura logica." />
+				  </option1>
+				  <option2 text="Culos">
+					  <sentence text="Mal mal mal mal, para los hombres el Imperio Romano significa TODO"/>
+				  </option2>
+			  </sentence>
+			  <sentence text="Continuemos... \n Si un tren viaja a 254km/h desde Madrid hasta Albacete, cuantas manzanas a robado Guillem?">
+				  <option1 text="Azul">
+					  <sentence text="Es un color bonito si, pero no es la respuesta correcta... Bueno, ninguna lo era" />
+				  </option1>
+				  <option2 text="M-95 Degman">
+					  <sentence text="Sabias que el M-95 Degman es un prototipo croata de un carro de combate principal, desarrollado por la fábrica de maestranzas Đuro Đaković specijalna vozila d.d., ubicada en Slavonski Brod, Croacia. Es también conocido como el RH-ALAN Degman. La fábrica de maestranzas militares Đuro Đaković es mejor y mayormente conocida por su papel principal en la producción del M-84, un tanque de la antigua Yugoslavia, que es una versión local del T-72 soviético producido bajo licencia del fabricante ruso. El M-95 Degman representa solamente una evolución del M-84 con electrónica y armas occidentales."/>
+					  <sentence text="El M-95 Degman no ha entrado en la fase de producción en serie, pero hay dos prototipos funcionales pedidos por el Gobierno Croata, un M-95 y otro del tipo M-84D como muestrario (para exportación). Đuro Đaković está trabajando en la producción de una variante del M-84D para exportación (esencialmente es un M-84A4 con significativas mejoras) para el Alto mando del Emirato de Kuwait y otros compradores potenciales. El ejército kuwaití ha confirmado en varias ocasiones su interés en modernizar al menos 149 de sus M-84 al estándar M-84D, así como otros 66 unidades nuevas del M-84D.1​ El más avanzado, el M-95 Degman podría ser encomendado por el Gobierno Croata."/>
+				  </option2>
+				  
+			  </sentence>
+			  <sentence text="Bueno, nos hemos ido del tema... Se me ha olvidado por donde iba, adioh"/>
+			  
+			  
+		  </sentences>
+	  </dialogTrigger>
+	  
   </scene>
 
 	<dialogmanager>

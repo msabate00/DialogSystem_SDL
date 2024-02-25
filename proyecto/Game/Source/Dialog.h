@@ -4,6 +4,8 @@
 #include "Point.h"
 #include "Input.h"
 #include "Render.h"
+#include "List.h"
+
 
 enum class DialogType
 {
@@ -84,6 +86,9 @@ public:
 
 	SDL_Texture* face_tex = nullptr;
 	const char* face_tex_path;
+
+	List<Dialog*> options1;
+	List<Dialog*> options2;
 	
 
 	// Possible properties, it depends on how generic we

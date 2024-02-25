@@ -46,6 +46,8 @@ bool DialogTrigger::Start() {
 		dialog->face_tex = app->tex->Load(itemNode.attribute("facetexturepath").as_string(faceTexturePath));
 
 
+
+
 		dialogues.Add(dialog);
 
 	}

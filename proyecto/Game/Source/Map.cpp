@@ -243,7 +243,7 @@ bool Map::Load(SString mapFileName)
         PhysBody* c2 = app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
         c2->ctype = ColliderType::PLATFORM;
 
-        PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
+        PhysBody* c3 = app->physics->CreateRectangle(256 + 250, 704 + 32, 1112, 64, STATIC);
         c3->ctype = ColliderType::PLATFORM;
 
           // L05: DONE 5: LOG all the data loaded iterate all tilesetsand LOG everything
