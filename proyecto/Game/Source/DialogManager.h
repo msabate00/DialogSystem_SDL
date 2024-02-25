@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Dialog.h"
+#include "Timer.h"
 #include "List.h"
 #include <vector>
 
@@ -58,6 +59,9 @@ private:
 	int textNameBoundWidth = 200;
 
 	int indexText;
+
+	Timer charTimer;
+	int charTimeMS = 10;
 
 };
 

@@ -133,7 +133,12 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 
 
 	if (actualText.size() < dialog->sentence.size()) {
-		indexText++;
+
+		if (charTimer.ReadMSec() >= charTimeMS) {
+			indexText++;
+			charTimer.Start();
+		}
+		
 		return false;
 	}
 
