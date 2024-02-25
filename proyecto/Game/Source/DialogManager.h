@@ -33,10 +33,6 @@ public:
 	bool ShowDialog(Dialog* dialog);
 
 
-	void DestroyDialog(Dialog* dialog);
-
-	void AddDialog(Dialog* dialog);
-
 public:
 
 	List<Dialog*> dialogues;

@@ -21,20 +21,9 @@ DialogManager::~DialogManager()
 // Called before render is available
 bool DialogManager::Awake(pugi::xml_node config)
 {
-	LOG("Loading Entity Manager");
+	LOG("Loading Dialog Manager");
 	bool ret = true;
 
-	//Iterates over the entities and calls the Awake
-	ListItem<Dialog*>* item;
-	Dialog* pDialog = NULL;
-
-	for (item = dialogues.start; item != NULL && ret == true; item = item->next)
-	{
-		pDialog = item->data;
-
-		if (pDialog->active == false) continue;
-		ret = item->data->Awake();
-	}
 
 	return ret;
 
@@ -43,18 +32,6 @@ bool DialogManager::Awake(pugi::xml_node config)
 bool DialogManager::Start() {
 
 	bool ret = true; 
-
-	//Iterates over the entities and calls Start
-	/*ListItem<Dialog*>* item;
-	Dialog* pDialog = NULL;
-
-	for (item = dialogues.start; item != NULL && ret == true; item = item->next)
-	{
-		pDialog = item->data;
-
-		if (pDialog->active == false) continue;
-		ret = item->data->Start();
-	}*/
 
 	uint windowW, windowH;
 	app->win->GetWindowSize(windowW, windowH);
@@ -130,6 +107,9 @@ bool DialogManager::Update(float dt) {
 	if (isPlaying) {
 		//Mostrar dialogos
 
+		//Motras fondo
+
+
 		bool dialogFinished = ShowDialog(dialogues.At(0)->data);
 
 
@@ -151,71 +131,8 @@ bool DialogManager::Update(float dt) {
 	else {
 		indexText = 1;
 	}
-	/*else {
-		CreateDialog("Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO. Que le pasa a un mago cuando come mucho? Se pone maGO-RDITO");
-		CreateDialog("jaja texto numero dos jaja");
-	}*/
-
-
-
 
 	return ret;
 
 }
 
-
-
-//
-//Entity* DialogManager::CreateEntity(EntityType type)
-//{
-//	Entity* entity = nullptr; 
-//
-//	//L03: DONE 3a: Instantiate entity according to the type and add the new entity to the list of Entities
-//	switch (type)
-//	{
-//	case EntityType::PLAYER:
-//		entity = new Player();
-//		break;
-//	case EntityType::ITEM:
-//		entity = new Item();
-//		break;
-//	default:
-//		break;
-//	}
-//
-//	entities.Add(entity);
-//
-//	return entity;
-//}
-//
-//void DialogManager::DestroyEntity(Entity* entity)
-//{
-//	ListItem<Entity*>* item;
-//
-//	for (item = entities.start; item != NULL; item = item->next)
-//	{
-//		if (item->data == entity) entities.Del(item);
-//	}
-//}
-//
-//void DialogManager::AddEntity(Entity* entity)
-//{
-//	if ( entity != nullptr) entities.Add(entity);
-//}
-//
-//bool DialogManager::Update(float dt)
-//{
-//	bool ret = true;
-//	ListItem<Entity*>* item;
-//	Entity* pEntity = NULL;
-//
-//	for (item = entities.start; item != NULL && ret == true; item = item->next)
-//	{
-//		pEntity = item->data;
-//
-//		if (pEntity->active == false) continue;
-//		ret = item->data->Update(dt);
-//	}
-//
-//	return ret;
-//}
