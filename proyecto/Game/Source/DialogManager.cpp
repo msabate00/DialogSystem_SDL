@@ -24,6 +24,8 @@ bool DialogManager::Awake(pugi::xml_node config)
 	LOG("Loading Dialog Manager");
 	bool ret = true;
 
+	background_tex_path = config.child("textures").child("background_dialog").attribute("texturepath").as_string();
+
 
 	return ret;
 
@@ -36,14 +38,15 @@ bool DialogManager::Start() {
 	uint windowW, windowH;
 	app->win->GetWindowSize(windowW, windowH);
 
-	dialogMargin = 20;
-
 	textColor = { 255,255,255,255 };
-	textColor = { 0,0,0,255 };
-	textBoundWidth = windowW - dialogMargin;
+	
+	textBoundWidth = windowW - dialogMargin[1] - dialogMargin[3];
 
 
 	indexText = 1;
+
+
+	background_tex = app->tex->Load(background_tex_path.c_str());
 
 	return ret;
 }
@@ -84,7 +87,7 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 
 	SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
 	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
-	app->render->DrawTexture(textTexture, dialogMargin + dialogPosition.x, dialogPosition.y, 0, 0);
+	app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
 
 	//Optimizacion de la memoria
 	SDL_FreeSurface(textSurface);
@@ -108,7 +111,7 @@ bool DialogManager::Update(float dt) {
 		//Mostrar dialogos
 
 		//Motras fondo
-
+		app->render->DrawTexture(background_tex, dialogPosition.x, dialogPosition.y);
 
 		bool dialogFinished = ShowDialog(dialogues.At(0)->data);
 

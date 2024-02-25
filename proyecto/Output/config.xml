@@ -27,19 +27,25 @@
     <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
 
-	  <dialogTrigger x="300" y="672" texturepath="Assets/Textures/player2.png">
+	  <dialogTrigger x="300" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png">
 		  <sentences>
-			  <sentence text="Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza?"/>
+			  <sentence text="Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza?"/>
 			  <sentence text="Sabes como se llama el hermano limpio de bruce willis? -Kevin Willis"/>
 		  </sentences>
 	  </dialogTrigger>
 
 
-	  <dialogTrigger x="450" y="672" texturepath="Assets/Textures/player2.png">
+	  <dialogTrigger x="450" y="672" texturepath="Assets/Textures/player3.png" facetexturepath="Assets/Textures/player3_face.png">
 		  <sentences>
 			  <sentence text="Madremia el humor JUAS JUAS JUAS JUAS"/>
 		  </sentences>
 	  </dialogTrigger>
   </scene>
+
+	<dialogmanager>
+		<textures>
+			<background_dialog texturepath="Assets/Textures/background_textbox.png"/>
+		</textures>
+	</dialogmanager>
   
 </config>

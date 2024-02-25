@@ -72,3 +72,15 @@ void DialogTrigger::PlayDialog()
 
 
 }
+
+void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB) {
+	switch (physB->ctype)
+	{
+		case ColliderType::PLAYER:
+			LOG("TOCO AL PLAYER");
+			if (!app->dialogManager->isPlaying && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+				PlayDialog();
+			}
+			break;
+	}
+}

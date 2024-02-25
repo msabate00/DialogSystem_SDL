@@ -26,6 +26,8 @@ public:
 
 	void PlayDialog();
 
+	void OnCollision(PhysBody* physA, PhysBody* physB);
+
 public:
 
 	bool isPicked = false;
@@ -33,6 +35,7 @@ public:
 private:
 
 	SDL_Texture* texture;
+	SDL_Texture* faceTexture;
 	const char* texturePath;
 	uint texW, texH;
 

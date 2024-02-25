@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Dialog.h"
 #include "List.h"
+#include <vector>
 
 class DialogManager : public Module
 {
@@ -43,9 +44,12 @@ public:
 private:
 	SDL_Color textColor;
 	int textBoundWidth;
-	int dialogMargin;
-	int dialogPadding;
-	iPoint dialogPosition = { 0 , 200 };
+	std::vector<int> dialogMargin = { 130, 50, 0, 50 };
+	iPoint dialogPosition = { 0 , 375 };
+
+	SDL_Texture* background_tex;
+	std::string background_tex_path;
+
 
 
 	int indexText;

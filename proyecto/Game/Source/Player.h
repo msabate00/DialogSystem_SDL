@@ -26,7 +26,6 @@ public:
 
 	// L07 DONE 6: Define OnCollision function for the player. 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
-	void OnExitCollision(PhysBody* physA, PhysBody* physB); /*NEW*/
 
 public:
 
