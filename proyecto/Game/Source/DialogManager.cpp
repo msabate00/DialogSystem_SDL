@@ -69,9 +69,10 @@ bool DialogManager::CleanUp()
 	return ret;
 }
 
-Dialog* DialogManager::CreateDialog(std::string text)
+Dialog* DialogManager::CreateDialog(std::string text, SDL_Texture* faceTexture)
 {
 	Dialog* dialog = new Dialog(text);
+	dialog->face_tex = faceTexture;
 
 	dialogues.Add(dialog);
 
@@ -84,10 +85,25 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	std::string actualText = dialog->sentence.substr(0, indexText);
 	
 
+	SDL_Surface* textSurface;
+	SDL_Texture* textTexture;
 
-	SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
-	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
-	app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
+	if (dialog->face_tex != nullptr) {
+
+		textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth - faceTextureSize.x);
+		textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
+
+		app->render->DrawTexture(dialog->face_tex, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
+		app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x + faceTextureSize.x, dialogMargin[0] + dialogPosition.y, 0, 0);
+	}
+	else {
+
+		textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
+		textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
+
+		app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
+	}
+	
 
 	//Optimizacion de la memoria
 	SDL_FreeSurface(textSurface);

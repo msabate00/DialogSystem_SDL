@@ -28,7 +28,7 @@ public:
 	bool CleanUp();
 
 	// Additional methods
-	Dialog* CreateDialog(std::string text);
+	Dialog* CreateDialog(std::string text, SDL_Texture* faceTexture);
 	
 
 	bool ShowDialog(Dialog* dialog);
@@ -50,7 +50,7 @@ private:
 	SDL_Texture* background_tex;
 	std::string background_tex_path;
 
-
+	iPoint faceTextureSize = { 250, 250 };
 
 	int indexText;
 

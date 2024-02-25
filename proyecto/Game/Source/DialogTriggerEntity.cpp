@@ -22,12 +22,13 @@ bool DialogTrigger::Awake() {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
-
+	faceTexturePath = parameters.attribute("facetexturepath").as_string("");
 
 	for (pugi::xml_node itemNode = parameters.child("sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
 	{
 		sentences.Add(itemNode.attribute("text").as_string());
 	}
+
 
 
 
@@ -38,6 +39,10 @@ bool DialogTrigger::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
+
+	if (faceTexturePath != "") {
+		faceTexture = app->tex->Load(faceTexturePath);
+	}
 
 	pbody = app->physics->CreateRectangleSensor(position.x+10, position.y, 100, 100, bodyType::KINEMATIC);
 	pbody->listener = this;
@@ -55,6 +60,10 @@ bool DialogTrigger::Update(float dt)
 
 bool DialogTrigger::CleanUp()
 {
+
+	SDL_DestroyTexture(texture);
+	SDL_DestroyTexture(faceTexture);
+
 	return true;
 }
 
@@ -67,7 +76,7 @@ void DialogTrigger::PlayDialog()
 	for (item = sentences.start; item != NULL; item = item->next)
 	{
 		pString = item->data;
-		app->dialogManager->CreateDialog(pString);
+		app->dialogManager->CreateDialog(pString, faceTexture);
 	}
 
 

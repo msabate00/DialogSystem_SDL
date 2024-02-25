@@ -37,6 +37,7 @@ private:
 	SDL_Texture* texture;
 	SDL_Texture* faceTexture;
 	const char* texturePath;
+	const char* faceTexturePath;
 	uint texW, texH;
 
 	PhysBody* pbody;
