@@ -52,6 +52,8 @@ private:
 
 	iPoint faceTextureSize = { 250, 250 };
 
+	int textNameBoundWidth = 200;
+
 	int indexText;
 
 };

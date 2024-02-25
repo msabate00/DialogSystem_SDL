@@ -88,6 +88,10 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	SDL_Surface* textSurface;
 	SDL_Texture* textTexture;
 
+	SDL_Surface* textNameSurface;
+	SDL_Texture* textNameTexture;
+
+	//Dialogo
 	if (dialog->face_tex != nullptr) {
 
 		textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth - faceTextureSize.x);
@@ -103,6 +107,12 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 
 		app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
 	}
+
+	//Nombre personaje
+	textNameSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
+	textNameTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
+
+
 	
 
 	//Optimizacion de la memoria

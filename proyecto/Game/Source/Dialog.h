@@ -81,6 +81,7 @@ public:
 	pugi::xml_node parameters;
 
 	std::string sentence;
+	
 	SDL_Texture* face_tex = nullptr;
 	
 
