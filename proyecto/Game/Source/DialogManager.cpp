@@ -93,22 +93,25 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	std::string actualText = dialog->sentence.substr(0, indexText);
 	
 
-	SDL_Surface* textSurface;
-	SDL_Texture* textTexture;
+	SDL_Surface* textSurface = nullptr;
+	SDL_Texture* textTexture = nullptr;
 
-	SDL_Surface* textNameSurface;
-	SDL_Texture* textNameTexture;
+	SDL_Surface* textNameSurface = nullptr;
+	SDL_Texture* textNameTexture = nullptr;
 
-	SDL_Surface* options1NameSurface;
-	SDL_Texture* options1NameTexture;
+	SDL_Surface* options1NameSurface = nullptr;
+	SDL_Texture* options1NameTexture = nullptr;
 	
-	SDL_Surface* options2NameSurface;
-	SDL_Texture* options2NameTexture;
+	SDL_Surface* options2NameSurface = nullptr;
+	SDL_Texture* options2NameTexture = nullptr;
 
 
 	if (dialog->face_tex != nullptr) { 	//Dialogo con imagen
 
-		textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth - faceTextureSize.x);
+		
+		
+		textSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth - faceTextureSize.x);
+		
 		textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
 
 		app->render->DrawTexture(dialog->face_tex, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
@@ -116,7 +119,7 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	}
 	else { 	//Dialogo sin imagen
 
-		textSurface = TTF_RenderText_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
+		textSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
 		textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
 
 		app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
@@ -124,7 +127,7 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 
 
 	//Nombre personaje
-	textNameSurface = TTF_RenderText_Blended_Wrapped(app->render->font, dialog->name.c_str(), textColor, textBoundWidth);
+	textNameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->name.c_str(), textColor, textBoundWidth);
 	textNameTexture = SDL_CreateTextureFromSurface(app->render->renderer, textNameSurface);
 
 	app->render->DrawTexture(textNameTexture, dialogMargin[3] + namePosition.x, dialogMargin[0] + namePosition.y, 0, 0);
@@ -133,13 +136,13 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	//Opciones
 	if (dialog->type == DialogType::CHOOSE) {
 
-		options1NameSurface = TTF_RenderText_Blended_Wrapped(app->render->font, dialog->option1.c_str(), textColor, textBoundWidth);
+		options1NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option1.c_str(), textColor, textBoundWidth);
 		options1NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options1NameSurface);
 
 		app->render->DrawTexture(options1NameTexture, dialogMargin[3] + dialogPosition.x + 400, dialogMargin[0] + dialogPosition.y + 50, 0, 0);
 
 
-		options2NameSurface = TTF_RenderText_Blended_Wrapped(app->render->font, dialog->option2.c_str(), textColor, textBoundWidth);
+		options2NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option2.c_str(), textColor, textBoundWidth);
 		options2NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options2NameSurface);
 
 		app->render->DrawTexture(options2NameTexture, dialogMargin[3] + dialogPosition.x + 400, dialogMargin[0] + dialogPosition.y + 100, 0, 0);
@@ -153,6 +156,12 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	SDL_DestroyTexture(textTexture);
 	SDL_FreeSurface(textNameSurface);
 	SDL_DestroyTexture(textNameTexture);
+
+	SDL_FreeSurface(options1NameSurface);
+	SDL_DestroyTexture(options1NameTexture);
+	
+	SDL_FreeSurface(options2NameSurface);
+	SDL_DestroyTexture(options2NameTexture);
 
 
 
@@ -184,9 +193,9 @@ bool DialogManager::Update(float dt) {
 
 		bool dialogFinished = ShowDialog(actualDialog);
 
-
+		//Siguiente dialogo
 		if (dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && actualDialog->type != DialogType::CHOOSE) {
-			//Next dialogue
+			
 			
 			indexText = 1;
 			dialogues.Del(dialogues.At(0));
@@ -195,12 +204,10 @@ bool DialogManager::Update(float dt) {
 
 
 		}
+		//Gestion de las opciones
 		else if (dialogFinished && (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) && actualDialog->type == DialogType::CHOOSE) {
 		
-			//Pulsar un numero
-			//Añadir a la lista de dialogos el dialogo por detrsa del 0, eliminar el 0.
-			//poner el index del texto a 1
-			// borrar el dialogo en la posicion 0
+			
 			if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 				dialogues.InsertAfter(0, actualDialog->options1);
 			}
@@ -215,6 +222,7 @@ bool DialogManager::Update(float dt) {
 			dialogues.Del(dialogues.At(0));
 
 		}
+		//Terminar el dialogo empezado
 		else if (!dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && indexText > 2) {
 			//Finish dialogue
 			indexText = 999;
