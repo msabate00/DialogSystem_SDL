@@ -40,7 +40,7 @@ bool DialogManager::Start() {
 	
 	//Calculo del tamaño de la caja de texto
 	textBoundWidth = windowW - dialogMargin[1] - dialogMargin[3];
-
+	
 
 	indexText = 1;
 

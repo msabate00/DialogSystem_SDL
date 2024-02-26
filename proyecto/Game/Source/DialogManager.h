@@ -64,6 +64,7 @@ private:
 	int textNameBoundWidth = 200;
 	int optionsBoundWidth = 200;
 	iPoint faceTextureSize = { 250, 250 };
+	
 
 	//Config
 	int charTimeMS = 10;
