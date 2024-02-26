@@ -75,9 +75,6 @@
     <ClInclude Include="Source\DynArray.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\List.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Log.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -166,6 +163,9 @@
       <Filter>ArchivosModificados</Filter>
     </ClInclude>
     <ClInclude Include="Source\Player.h">
+      <Filter>ArchivosModificados</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\List.h">
       <Filter>ArchivosModificados</Filter>
     </ClInclude>
   </ItemGroup>
