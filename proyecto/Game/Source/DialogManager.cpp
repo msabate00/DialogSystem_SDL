@@ -141,7 +141,7 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	textNameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->name.c_str(), textColor, textNameBoundWidth);
 	textNameTexture = SDL_CreateTextureFromSurface(app->render->renderer, textNameSurface);
 
-	app->render->DrawTexture(textNameTexture, dialogMargin[3] + namePosition.x, dialogMargin[0] + namePosition.y, 0, 0);
+	app->render->DrawTexture(textNameTexture, dialogMargin[3]+ dialogPosition.x + namePosition.x, dialogMargin[0] + dialogPosition.y + namePosition.y, 0, 0);
 
 
 	//Opciones

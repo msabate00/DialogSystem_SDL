@@ -54,8 +54,8 @@ private:
 
 	//Posiciones
 	std::vector<int> dialogMargin = { 130, 50, 0, 50 };
-	iPoint dialogPosition = { 0 , 375 };
-	iPoint namePosition = { 40 , 300 };
+	iPoint dialogPosition = { 0 , 0 }; //{ 0 , 375 }
+	iPoint namePosition = { 40 , -75 };
 	iPoint optionsPosition = { 900 , 300 };
 	int optionsDistanceBetween = 50;
 
