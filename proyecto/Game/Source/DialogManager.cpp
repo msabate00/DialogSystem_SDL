@@ -120,6 +120,10 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 		_dialogPosition.y = dialogMargin[0] + dialogPosition.y;
 	}
 
+	if (dialog->type == DialogType::CHOOSE) {
+		_textBoundWidth = optionsPosition.x - faceTextureSize.x - 10; //CAMBIAR PARA AJUSTAR LAS OPCINES A LA DERECHA
+	}
+
 	//Textura dialogo
 	textSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, _textBoundWidth);
 	textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
@@ -134,7 +138,7 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 
 
 	//Nombre personaje
-	textNameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->name.c_str(), textColor, textBoundWidth);
+	textNameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->name.c_str(), textColor, textNameBoundWidth);
 	textNameTexture = SDL_CreateTextureFromSurface(app->render->renderer, textNameSurface);
 
 	app->render->DrawTexture(textNameTexture, dialogMargin[3] + namePosition.x, dialogMargin[0] + namePosition.y, 0, 0);
@@ -144,16 +148,16 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	if (dialog->type == DialogType::CHOOSE) {
 
 		//Textura opcion1
-		options1NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option1.c_str(), (optionSelected == 1) ? OptionSelectedColor : OptionColor, textBoundWidth);
+		options1NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option1.c_str(), (optionSelected == 1) ? OptionSelectedColor : OptionColor, optionsBoundWidth);
 		options1NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options1NameSurface);
 
-		app->render->DrawTexture(options1NameTexture, dialogMargin[3] + dialogPosition.x + 400, dialogMargin[0] + dialogPosition.y + 50, 0, 0);
+		app->render->DrawTexture(options1NameTexture, dialogMargin[3] + dialogPosition.x + optionsPosition.x, dialogMargin[0] + dialogPosition.y + optionsDistanceBetween, 0, 0);
 
 		//Textura opcion2
-		options2NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option2.c_str(), (optionSelected == 2) ? OptionSelectedColor : OptionColor, textBoundWidth);
+		options2NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option2.c_str(), (optionSelected == 2) ? OptionSelectedColor : OptionColor, optionsBoundWidth);
 		options2NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options2NameSurface);
 
-		app->render->DrawTexture(options2NameTexture, dialogMargin[3] + dialogPosition.x + 400, dialogMargin[0] + dialogPosition.y + 100, 0, 0);
+		app->render->DrawTexture(options2NameTexture, dialogMargin[3] + dialogPosition.x + optionsPosition.x, dialogMargin[0] + dialogPosition.y + optionsDistanceBetween*2, 0, 0);
 	}
 
 

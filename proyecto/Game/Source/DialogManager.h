@@ -55,11 +55,14 @@ private:
 	//Posiciones
 	std::vector<int> dialogMargin = { 130, 50, 0, 50 };
 	iPoint dialogPosition = { 0 , 375 };
-	iPoint namePosition = { 40 , 305 };
+	iPoint namePosition = { 40 , 300 };
+	iPoint optionsPosition = { 900 , 300 };
+	int optionsDistanceBetween = 50;
 
 	//Dimensiones
 	int textBoundWidth;
 	int textNameBoundWidth = 200;
+	int optionsBoundWidth = 200;
 	iPoint faceTextureSize = { 250, 250 };
 
 	//Config
