@@ -37,11 +37,8 @@ bool DialogManager::Start() {
 
 	uint windowW, windowH;
 	app->win->GetWindowSize(windowW, windowH);
-
-	textColor = { 255,255,255,255 };
-	OptionSelectedColor = {129, 23, 89, 255};
-	OptionColor = { 23, 23, 23, 255 };
 	
+	//Calculo del tamaño de la caja de texto
 	textBoundWidth = windowW - dialogMargin[1] - dialogMargin[3];
 
 
@@ -89,12 +86,13 @@ bool DialogManager::AddDialog(Dialog* dialog)
 
 bool DialogManager::ShowDialog(Dialog* dialog)
 {
-	//Motras fondo
+	//Mostrar fondo
 	app->render->DrawTexture(background_tex, dialogPosition.x, dialogPosition.y, 0, 0);
 
 	std::string actualText = dialog->sentence.substr(0, indexText);
 	
 
+	//Inicializando las variables para las texturas
 	SDL_Surface* textSurface = nullptr;
 	SDL_Texture* textTexture = nullptr;
 
@@ -107,25 +105,32 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	SDL_Surface* options2NameSurface = nullptr;
 	SDL_Texture* options2NameTexture = nullptr;
 
+	//Setting de las variables
+	int _textBoundWidth;
+	iPoint _dialogPosition;
 
-	if (dialog->face_tex != nullptr) { 	//Dialogo con imagen
+	if (dialog->face_tex != nullptr) {
+		_textBoundWidth = textBoundWidth - faceTextureSize.x;
+		_dialogPosition.x = dialogMargin[3] + dialogPosition.x + faceTextureSize.x;
+		_dialogPosition.y = dialogMargin[0] + dialogPosition.y;
+	}
+	else {
+		_textBoundWidth = textBoundWidth;
+		_dialogPosition.x = dialogMargin[3] + dialogPosition.x;
+		_dialogPosition.y = dialogMargin[0] + dialogPosition.y;
+	}
 
-		
-		
-		textSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth - faceTextureSize.x);
-		
-		textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
+	//Textura dialogo
+	textSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, _textBoundWidth);
+	textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
 
+	app->render->DrawTexture(textTexture, _dialogPosition.x, _dialogPosition.y, 0, 0);
+	
+	//Imagen del personaje
+	if (dialog->face_tex != nullptr) {
 		app->render->DrawTexture(dialog->face_tex, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
-		app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x + faceTextureSize.x, dialogMargin[0] + dialogPosition.y, 0, 0);
 	}
-	else { 	//Dialogo sin imagen
 
-		textSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, textBoundWidth);
-		textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
-
-		app->render->DrawTexture(textTexture, dialogMargin[3] + dialogPosition.x, dialogMargin[0] + dialogPosition.y, 0, 0);
-	}
 
 
 	//Nombre personaje
@@ -138,12 +143,13 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	//Opciones
 	if (dialog->type == DialogType::CHOOSE) {
 
+		//Textura opcion1
 		options1NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option1.c_str(), (optionSelected == 1) ? OptionSelectedColor : OptionColor, textBoundWidth);
 		options1NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options1NameSurface);
 
 		app->render->DrawTexture(options1NameTexture, dialogMargin[3] + dialogPosition.x + 400, dialogMargin[0] + dialogPosition.y + 50, 0, 0);
 
-
+		//Textura opcion2
 		options2NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option2.c_str(), (optionSelected == 2) ? OptionSelectedColor : OptionColor, textBoundWidth);
 		options2NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options2NameSurface);
 
@@ -156,6 +162,7 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	//Optimizacion de la memoria
 	SDL_FreeSurface(textSurface);
 	SDL_DestroyTexture(textTexture);
+
 	SDL_FreeSurface(textNameSurface);
 	SDL_DestroyTexture(textNameTexture);
 
@@ -168,7 +175,7 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 
 
 
-
+	//Añadir caracter segun el tiempo
 	if (actualText.size() < dialog->sentence.size()) {
 
 		if (charTimer.ReadMSec() >= charTimeMS) {
@@ -186,13 +193,13 @@ bool DialogManager::Update(float dt) {
 
 	bool ret = true;
 
+	//Para saber si hay algun dialogo en funcionamiento
 	isPlaying = (dialogues.Count() > 0);
 
-	if (isPlaying) {
-		//Mostrar dialogos
+	if (isPlaying) { //Entonces mostrar dialogos
+		
 
 		Dialog* actualDialog = dialogues.At(0)->data;
-
 		bool dialogFinished = ShowDialog(actualDialog);
 
 
@@ -229,7 +236,7 @@ bool DialogManager::Update(float dt) {
 			}
 			
 
-
+			//Reiniciar varialbes de dialogo y quitar el dialogo actual de su lista
 			optionSelected = 0;
 			indexText = 1;
 			dialogues.Del(dialogues.At(0));
@@ -237,7 +244,6 @@ bool DialogManager::Update(float dt) {
 		}
 		//Terminar el dialogo empezado
 		else if (!dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && indexText > 2) {
-			//Finish dialogue
 			indexText = 999;
 		}
 		
@@ -245,6 +251,7 @@ bool DialogManager::Update(float dt) {
 
 	}
 	else {
+		//Reiniciar variables mientras no este algun dialogo en marcha
 		indexText = 1;
 		optionSelected = 0;
 	}

@@ -45,26 +45,33 @@ public:
 
 
 private:
-	SDL_Color textColor;
-	SDL_Color OptionSelectedColor;
-	SDL_Color OptionColor;
-	int textBoundWidth;
+
+	//Colores
+	SDL_Color textColor = { 255,255,255,255 };
+	SDL_Color OptionSelectedColor = { 200, 200, 200, 255 };
+	SDL_Color OptionColor = { 23, 23, 23, 255 };
+	
+
+	//Posiciones
 	std::vector<int> dialogMargin = { 130, 50, 0, 50 };
 	iPoint dialogPosition = { 0 , 375 };
 	iPoint namePosition = { 40 , 305 };
 
-	SDL_Texture* background_tex;
-	std::string background_tex_path;
-
+	//Dimensiones
+	int textBoundWidth;
+	int textNameBoundWidth = 200;
 	iPoint faceTextureSize = { 250, 250 };
 
-	int textNameBoundWidth = 200;
-
-	int indexText;
-
-	Timer charTimer;
+	//Config
 	int charTimeMS = 10;
 
+
+	//Para el funcionamiento
+
+	SDL_Texture* background_tex;
+	std::string background_tex_path;
+	int indexText;
+	Timer charTimer;
 	int optionSelected = 0;
 
 };
