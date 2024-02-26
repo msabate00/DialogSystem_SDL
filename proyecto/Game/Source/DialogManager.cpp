@@ -39,6 +39,8 @@ bool DialogManager::Start() {
 	app->win->GetWindowSize(windowW, windowH);
 
 	textColor = { 255,255,255,255 };
+	OptionSelectedColor = {129, 23, 89, 255};
+	OptionColor = { 23, 23, 23, 255 };
 	
 	textBoundWidth = windowW - dialogMargin[1] - dialogMargin[3];
 
@@ -136,13 +138,13 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	//Opciones
 	if (dialog->type == DialogType::CHOOSE) {
 
-		options1NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option1.c_str(), textColor, textBoundWidth);
+		options1NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option1.c_str(), (optionSelected == 1) ? OptionSelectedColor : OptionColor, textBoundWidth);
 		options1NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options1NameSurface);
 
 		app->render->DrawTexture(options1NameTexture, dialogMargin[3] + dialogPosition.x + 400, dialogMargin[0] + dialogPosition.y + 50, 0, 0);
 
 
-		options2NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option2.c_str(), textColor, textBoundWidth);
+		options2NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option2.c_str(), (optionSelected == 2) ? OptionSelectedColor : OptionColor, textBoundWidth);
 		options2NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options2NameSurface);
 
 		app->render->DrawTexture(options2NameTexture, dialogMargin[3] + dialogPosition.x + 400, dialogMargin[0] + dialogPosition.y + 100, 0, 0);
@@ -193,6 +195,17 @@ bool DialogManager::Update(float dt) {
 
 		bool dialogFinished = ShowDialog(actualDialog);
 
+
+
+		//Gestionar la opcion seleccionada
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+			optionSelected = 1;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+			optionSelected = 2;
+		}
+
+
 		//Siguiente dialogo
 		if (dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && actualDialog->type != DialogType::CHOOSE) {
 			
@@ -205,19 +218,19 @@ bool DialogManager::Update(float dt) {
 
 		}
 		//Gestion de las opciones
-		else if (dialogFinished && (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) && actualDialog->type == DialogType::CHOOSE) {
+		else if (dialogFinished && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && optionSelected != 0 && actualDialog->type == DialogType::CHOOSE) {
 		
 			
-			if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+			if (optionSelected == 1) {
 				dialogues.InsertAfter(0, actualDialog->options1);
 			}
-			else if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+			else if (optionSelected == 2) {
 				dialogues.InsertAfter(0, actualDialog->options2);
 			}
 			
 
 
-
+			optionSelected = 0;
 			indexText = 1;
 			dialogues.Del(dialogues.At(0));
 
@@ -233,6 +246,7 @@ bool DialogManager::Update(float dt) {
 	}
 	else {
 		indexText = 1;
+		optionSelected = 0;
 	}
 
 	return ret;

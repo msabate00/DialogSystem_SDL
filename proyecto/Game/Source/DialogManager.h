@@ -46,6 +46,8 @@ public:
 
 private:
 	SDL_Color textColor;
+	SDL_Color OptionSelectedColor;
+	SDL_Color OptionColor;
 	int textBoundWidth;
 	std::vector<int> dialogMargin = { 130, 50, 0, 50 };
 	iPoint dialogPosition = { 0 , 375 };
@@ -62,6 +64,8 @@ private:
 
 	Timer charTimer;
 	int charTimeMS = 10;
+
+	int optionSelected = 0;
 
 };
 
