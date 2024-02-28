@@ -28,12 +28,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Additional methods
-	Dialog* CreateDialog(std::string text, SDL_Texture* faceTexture);
+	//Funcion para crear dialogos
+	Dialog* CreateDialog(pugi::xml_node itemNode, std::string name = "", const char* faceTexturePath = "");
 	
+	//Funcion para añadir a la lista de dialogos
 	bool AddDialog(Dialog* dialog);
 	
-
+private:
+	//Funcion que se encarga de mostrar los dialogos
 	bool ShowDialog(Dialog* dialog);
 
 

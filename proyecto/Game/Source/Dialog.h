@@ -10,94 +10,64 @@
 enum class DialogType
 {
 	TEXT,
-	SET,
 	CHOOSE
 };
-
-
 
 class Dialog
 {
 public:
 
-	Dialog(std::string sentence) : type(type), active(false), sentence(sentence) {}
-
-	virtual bool Awake()
-	{
-		return true;
-	}
-
-	virtual bool Start()
-	{
-		return true;
-	}
-
-	virtual bool Update(float dt)
-	{
-		return true;
-	}
+	Dialog(std::string sentence) : sentence(sentence) {}
 
 	virtual bool CleanUp()
 	{
-		return true;
-	}
 
-	virtual bool LoadState(pugi::xml_node&)
-	{
-		return true;
-	}
+		ListItem<Dialog*>* item;
+		Dialog* pDialog = nullptr;
 
-	virtual bool SaveState(pugi::xml_node&)
-	{
-		return true;
-	}
-
-	void Dialog::Enable()
-	{
-		if (!active)
+		for (item = options1.start; item != NULL; item = item->next)
 		{
-			active = true;
-			Start();
+			pDialog = item->data;
+			SDL_DestroyTexture(pDialog->face_tex);
 		}
-	}
+		options1.Clear();
 
-	void Dialog::Disable()
-	{
-		if (active)
+		for (item = options2.start; item != NULL; item = item->next)
 		{
-			active = false;
-			CleanUp();
+			pDialog = item->data;
+			SDL_DestroyTexture(pDialog->face_tex);
 		}
+		options2.Clear();
+
+		return true;
 	}
 
-	
 
 
 
 public:
 
-
+	//Definir el tipo del dialogo, si es normal o de elecciones
 	DialogType type;
-	bool active = false;
-	pugi::xml_node parameters;
 	
+	//Frase del dialogo
 	std::string sentence;
+
+	//Nombre de quien realiza el dialogo
 	std::string name;
 
+	//Texturas
 	SDL_Texture* face_tex = nullptr;
 	const char* face_tex_path;
 
-
+	//El texto de las opciones
 	std::string option1;
 	std::string option2;
 
+	//El resultado al escoger dichas opciones
 	List<Dialog*> options1;
 	List<Dialog*> options2;
 	
-
-	// Possible properties, it depends on how generic we
-	// want our Entity class, maybe it's not renderable...
-	bool renderable = true;
 };
 
 #endif // __DIALOG_H__

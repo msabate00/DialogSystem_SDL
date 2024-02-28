@@ -36,14 +36,14 @@ bool DialogTrigger::Start() {
 	//Cargar dialogos
 	for (pugi::xml_node itemNode = parameters.child("sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
 	{
-		dialogues.Add(CreateDialog(itemNode));
+		dialogues.Add(app->dialogManager->CreateDialog(itemNode, parameters.attribute("name").as_string(), faceTexturePath));
 	}
 
 	//Si el dialogo se reite, cargar las lineas que se repite
 	if (repeatDialog) {
 		for (pugi::xml_node itemNode = parameters.child("repeat_sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
 		{
-			dialoguesRepeat.Add(CreateDialog(itemNode));
+			dialoguesRepeat.Add(app->dialogManager->CreateDialog(itemNode, parameters.attribute("name").as_string(), faceTexturePath));
 		}
 	}
 
@@ -85,6 +85,7 @@ bool DialogTrigger::CleanUp()
 	{
 		pDialog = item->data;
 		//pDialog->face_tex = faceTexture;
+		pDialog->CleanUp();
 		SDL_DestroyTexture(pDialog->face_tex);
 	}
 
@@ -152,49 +153,3 @@ void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-Dialog* DialogTrigger::CreateDialog(pugi::xml_node itemNode)
-{
-	//Dialogo a crear
-	Dialog* dialog = new Dialog(itemNode.attribute("text").as_string());
-	dialog->name = parameters.attribute("name").as_string();
-	dialog->name = itemNode.attribute("name").as_string(dialog->name.c_str());
-	dialog->face_tex = app->tex->Load(itemNode.attribute("facetexturepath").as_string(faceTexturePath));
-
-	const char* type = itemNode.attribute("type").as_string("");
-
-	if (strcmp(type, "choose") == 0) {
-
-		dialog->type = DialogType::CHOOSE;
-
-		//Options1
-		dialog->option1 = itemNode.child("option1").attribute("text").as_string();
-		for (pugi::xml_node optionNode = itemNode.child("option1").child("sentence"); optionNode; optionNode = optionNode.next_sibling("sentence")) {
-
-			Dialog* dialogOp1 = new Dialog(optionNode.attribute("text").as_string());
-			dialogOp1->name = parameters.attribute("name").as_string();
-			dialogOp1->name = optionNode.attribute("name").as_string(dialogOp1->name.c_str());
-			dialogOp1->face_tex = app->tex->Load(optionNode.attribute("facetexturepath").as_string(faceTexturePath));
-
-			dialog->options1.Add(dialogOp1);
-
-		}
-
-		//Options2
-		dialog->option2 = itemNode.child("option2").attribute("text").as_string();
-		for (pugi::xml_node optionNode = itemNode.child("option2").child("sentence"); optionNode; optionNode = optionNode.next_sibling("sentence")) {
-
-			Dialog* dialogOp2 = new Dialog(optionNode.attribute("text").as_string());
-			dialogOp2->name = parameters.attribute("name").as_string();
-			dialogOp2->name = optionNode.attribute("name").as_string(dialogOp2->name.c_str());
-			dialogOp2->face_tex = app->tex->Load(optionNode.attribute("facetexturepath").as_string(faceTexturePath));
-
-			dialog->options2.Add(dialogOp2);
-		}
-
-
-
-
-	}
-
-	return dialog;
-}

@@ -68,12 +68,49 @@ bool DialogManager::CleanUp()
 	return ret;
 }
 
-Dialog* DialogManager::CreateDialog(std::string text, SDL_Texture* faceTexture)
+Dialog* DialogManager::CreateDialog(pugi::xml_node itemNode, std::string name, const char* faceTexturePath)
 {
-	Dialog* dialog = new Dialog(text);
-	dialog->face_tex = faceTexture;
+	//Dialogo a crear
+	Dialog* dialog = new Dialog(itemNode.attribute("text").as_string());
+	dialog->name = name;
+	dialog->name = itemNode.attribute("name").as_string(dialog->name.c_str());
+	dialog->face_tex = app->tex->Load(itemNode.attribute("facetexturepath").as_string(faceTexturePath));
 
-	dialogues.Add(dialog);
+	const char* type = itemNode.attribute("type").as_string("");
+
+	if (strcmp(type, "choose") == 0) {
+
+		dialog->type = DialogType::CHOOSE;
+
+		//Options1
+		dialog->option1 = itemNode.child("option1").attribute("text").as_string();
+		for (pugi::xml_node optionNode = itemNode.child("option1").child("sentence"); optionNode; optionNode = optionNode.next_sibling("sentence")) {
+
+			Dialog* dialogOp1 = new Dialog(optionNode.attribute("text").as_string());
+			dialogOp1->name = name;
+			dialogOp1->name = optionNode.attribute("name").as_string(dialogOp1->name.c_str());
+			dialogOp1->face_tex = app->tex->Load(optionNode.attribute("facetexturepath").as_string(faceTexturePath));
+
+			dialog->options1.Add(dialogOp1);
+
+		}
+
+		//Options2
+		dialog->option2 = itemNode.child("option2").attribute("text").as_string();
+		for (pugi::xml_node optionNode = itemNode.child("option2").child("sentence"); optionNode; optionNode = optionNode.next_sibling("sentence")) {
+
+			Dialog* dialogOp2 = new Dialog(optionNode.attribute("text").as_string());
+			dialogOp2->name = name;
+			dialogOp2->name = optionNode.attribute("name").as_string(dialogOp2->name.c_str());
+			dialogOp2->face_tex = app->tex->Load(optionNode.attribute("facetexturepath").as_string(faceTexturePath));
+
+			dialog->options2.Add(dialogOp2);
+		}
+
+
+
+
+	}
 
 	return dialog;
 }
