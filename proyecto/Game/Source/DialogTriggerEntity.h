@@ -29,6 +29,11 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+private:
+
+	Dialog* CreateDialog(pugi::xml_node itemNode);
+
+
 public:
 
 	bool isPicked = false;
