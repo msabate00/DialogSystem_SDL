@@ -32,23 +32,33 @@ public:
 
 public:
 
-	bool isPicked = false;
-
 private:
 
+	//En caso de querer añadirle una textura a la entidad
 	SDL_Texture* texture;
-	SDL_Texture* faceTexture;
-	const char* texturePath;
-	const char* faceTexturePath;
-	uint texW, texH;
 
+	//La textura de la cara general para el dialogo
+	SDL_Texture* faceTexture;
+
+	//El path de la textura de la entidad
+	const char* texturePath;
+
+	//El path de la textura de la cara general
+	const char* faceTexturePath;
+
+	//Cuerpo de fisicas, para detectar cuando el jugador esta cerca
+	//y activar el dialogo en caso de que el jugador asi lo quiera
 	PhysBody* pbody;
 
+	//Lista de los dialogos que puede decir este trigger
 	List<Dialog*> dialogues;
 
+	//Variables para saber si se tiene que repetir el dialogo y si
+	//ya se a activado minimo una vez
 	bool repeatDialog = false;
 	bool played = false;
 
+	//Lista de dialogos a repetir
 	List<Dialog*> dialoguesRepeat;
 
 };
