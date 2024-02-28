@@ -35,6 +35,8 @@ bool DialogTrigger::Start() {
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 	faceTexturePath = parameters.attribute("facetexturepath").as_string("");
+	repeatDialog = parameters.attribute("repeat").as_bool(false);
+	played = false;
 
 	for (pugi::xml_node itemNode = parameters.child("sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
 	{
@@ -88,6 +90,58 @@ bool DialogTrigger::Start() {
 
 	}
 
+	//Si el dialogo se reite
+	if (repeatDialog) {
+		for (pugi::xml_node itemNode = parameters.child("repeat_sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
+		{
+			//sentences.Add(itemNode.attribute("text").as_string());
+
+			Dialog* dialog = new Dialog(itemNode.attribute("text").as_string());
+			dialog->name = parameters.attribute("name").as_string();
+			dialog->name = itemNode.attribute("name").as_string(dialog->name.c_str());
+			dialog->face_tex = app->tex->Load(itemNode.attribute("facetexturepath").as_string(faceTexturePath));
+
+			const char* type = itemNode.attribute("type").as_string("");
+
+			if (strcmp(type, "choose") == 0) {
+
+				dialog->type = DialogType::CHOOSE;
+
+				//Options1
+				dialog->option1 = itemNode.child("option1").attribute("text").as_string();
+				for (pugi::xml_node optionNode = itemNode.child("option1").child("sentence"); optionNode; optionNode = optionNode.next_sibling("sentence")) {
+
+					Dialog* dialogOp1 = new Dialog(optionNode.attribute("text").as_string());
+					dialogOp1->name = parameters.attribute("name").as_string();
+					dialogOp1->name = optionNode.attribute("name").as_string(dialogOp1->name.c_str());
+					dialogOp1->face_tex = app->tex->Load(optionNode.attribute("facetexturepath").as_string(faceTexturePath));
+
+					dialog->options1.Add(dialogOp1);
+
+				}
+
+				//Options2
+				dialog->option2 = itemNode.child("option2").attribute("text").as_string();
+				for (pugi::xml_node optionNode = itemNode.child("option2").child("sentence"); optionNode; optionNode = optionNode.next_sibling("sentence")) {
+
+					Dialog* dialogOp2 = new Dialog(optionNode.attribute("text").as_string());
+					dialogOp2->name = parameters.attribute("name").as_string();
+					dialogOp2->name = optionNode.attribute("name").as_string(dialogOp2->name.c_str());
+					dialogOp2->face_tex = app->tex->Load(optionNode.attribute("facetexturepath").as_string(faceTexturePath));
+
+					dialog->options2.Add(dialogOp2);
+				}
+
+
+
+
+			}
+			dialoguesRepeat.Add(dialog);
+		}
+
+		
+	}
+
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
@@ -131,6 +185,18 @@ bool DialogTrigger::CleanUp()
 
 	dialogues.Clear();
 
+	
+	pDialog = nullptr;
+
+	for (item = dialoguesRepeat.start; item != NULL; item = item->next)
+	{
+		pDialog = item->data;
+		//pDialog->face_tex = faceTexture;
+		SDL_DestroyTexture(pDialog->face_tex);
+	}
+
+	dialoguesRepeat.Clear();
+
 	return true;
 }
 
@@ -146,16 +212,30 @@ void DialogTrigger::PlayDialog()
 		app->dialogManager->CreateDialog(pString, faceTexture);
 	}*/
 
-	ListItem<Dialog*>* item;
-	Dialog* pDialog = nullptr;
+	if ((played && !repeatDialog) || !played) {
+	
+	
+		ListItem<Dialog*>* item;
+		Dialog* pDialog = nullptr;
 
-	for (item = dialogues.start; item != NULL; item = item->next)
-	{
-		pDialog = item->data;
-		//pDialog->face_tex = faceTexture;
-		app->dialogManager->AddDialog(pDialog);
+		for (item = dialogues.start; item != NULL; item = item->next)
+		{
+			pDialog = item->data;
+			app->dialogManager->AddDialog(pDialog);
+		}
+		played = true;
+	}else if (played && repeatDialog) {
+
+		//Mostrar diaologo repetido
+		ListItem<Dialog*>* item;
+		Dialog* pDialog = nullptr;
+
+		for (item = dialoguesRepeat.start; item != NULL; item = item->next)
+		{
+			pDialog = item->data;
+			app->dialogManager->AddDialog(pDialog);
+		}
 	}
-
 
 }
 

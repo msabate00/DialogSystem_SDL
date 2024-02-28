@@ -27,11 +27,14 @@
     <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
 
-	  <dialogTrigger x="90" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="El gracioso">
+	  <dialogTrigger x="90" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="El gracioso" repeat="true">
 		  <sentences>
 			  <sentence text="Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza? [C REPITE] Sabes que se pregunta las cerezas cuando se miran en espejos? -Cere eza?"/>
 			  <sentence text="Sabes como se llama el hermano limpio de bruce willis? -Kevin Willis"/>
 		  </sentences>
+		  <repeat_sentences>
+			  <sentence text="Se me ha acabado el repertorio de chistes, vuelve en otro momento..."/>
+		  </repeat_sentences>
 	  </dialogTrigger>
 
 

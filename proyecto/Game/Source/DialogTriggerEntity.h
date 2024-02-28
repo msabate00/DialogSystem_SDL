@@ -45,6 +45,11 @@ private:
 
 	List<Dialog*> dialogues;
 
+	bool repeatDialog = false;
+	bool played = false;
+
+	List<Dialog*> dialoguesRepeat;
+
 };
 
 #endif // __DIALOGTRIGGERENTITY_H__
