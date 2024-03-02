@@ -67,6 +67,8 @@ public:
 	//El resultado al escoger dichas opciones
 	List<Dialog*> options1;
 	List<Dialog*> options2;
+
+	TTF_Font* font;
 	
 };
 

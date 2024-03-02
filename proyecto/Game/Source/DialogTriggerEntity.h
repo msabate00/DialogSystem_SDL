@@ -30,6 +30,11 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 
+private:
+
+	
+
+
 public:
 
 private:

@@ -31,19 +31,25 @@ bool DialogTrigger::Start() {
 	texturePath = parameters.attribute("texturepath").as_string();
 	faceTexturePath = parameters.attribute("facetexturepath").as_string("");
 	repeatDialog = parameters.attribute("repeat").as_bool(false);
+
+	std::string fontTarget = parameters.attribute("font").as_string("primary");
+
+	
+
+
 	played = false;
 
 	//Cargar dialogos
 	for (pugi::xml_node itemNode = parameters.child("sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
 	{
-		dialogues.Add(app->dialogManager->CreateDialog(itemNode, parameters.attribute("name").as_string(), faceTexturePath));
+		dialogues.Add(app->dialogManager->CreateDialog(itemNode, parameters.attribute("name").as_string(), faceTexturePath, fontTarget.c_str()));
 	}
 
 	//Si el dialogo se reite, cargar las lineas que se repite
 	if (repeatDialog) {
 		for (pugi::xml_node itemNode = parameters.child("repeat_sentences").child("sentence"); itemNode; itemNode = itemNode.next_sibling("sentence"))
 		{
-			dialoguesRepeat.Add(app->dialogManager->CreateDialog(itemNode, parameters.attribute("name").as_string(), faceTexturePath));
+			dialoguesRepeat.Add(app->dialogManager->CreateDialog(itemNode, parameters.attribute("name").as_string(), faceTexturePath, fontTarget.c_str()));
 		}
 	}
 
@@ -152,4 +158,6 @@ void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 	}
 }
+
+
 

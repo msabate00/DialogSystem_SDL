@@ -30,7 +30,7 @@ public:
 	bool CleanUp();
 
 	//Funcion para crear dialogos
-	Dialog* CreateDialog(pugi::xml_node itemNode, std::string name = "", const char* faceTexturePath = "");
+	Dialog* CreateDialog(pugi::xml_node itemNode, std::string name = "", const char* faceTexturePath = "", const char* font = "primary");
 	
 	//Funcion para añadir a la lista de dialogos
 	bool AddDialog(Dialog* dialog);
@@ -40,6 +40,8 @@ private:
 	bool ShowDialog(Dialog* dialog);
 
 	SDL_Texture* CreateTextTexture(TTF_Font* font, const char* text, SDL_Color color, int textBoundWidth);
+
+	TTF_Font* FontSelector(const char* font);
 
 
 public:

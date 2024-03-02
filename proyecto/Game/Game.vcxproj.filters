@@ -37,9 +37,6 @@
     <ClCompile Include="Source\PerfTimer.cpp">
       <Filter>ProyectoBase</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Render.cpp">
-      <Filter>ProyectoBase</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Textures.cpp">
       <Filter>ProyectoBase</Filter>
     </ClCompile>
@@ -65,6 +62,9 @@
       <Filter>ArchivosModificados</Filter>
     </ClCompile>
     <ClCompile Include="Source\Player.cpp">
+      <Filter>ArchivosModificados</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render.cpp">
       <Filter>ArchivosModificados</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,9 +135,6 @@
     <ClInclude Include="Source\PerfTimer.h">
       <Filter>ProyectoBase</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Render.h">
-      <Filter>ProyectoBase</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene.h">
       <Filter>ProyectoBase</Filter>
     </ClInclude>
@@ -166,6 +163,9 @@
       <Filter>ArchivosModificados</Filter>
     </ClInclude>
     <ClInclude Include="Source\List.h">
+      <Filter>ArchivosModificados</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render.h">
       <Filter>ArchivosModificados</Filter>
     </ClInclude>
   </ItemGroup>

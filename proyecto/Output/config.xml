@@ -8,6 +8,12 @@
 
   <renderer>
     <vsync value="false"/>
+	  <fonts>
+		  <primary_font fontPath="Assets/Fonts/arial.ttf" fontSize="25"/>
+		  <secondary_font fontPath="Assets/Fonts/birds_of_paradise.ttf" fontSize="25"/>
+		  
+		  
+	  </fonts>
   </renderer>
 
   <window>
@@ -88,6 +94,21 @@
 			  <sentence text="Bueno, nos hemos ido del tema... Se me ha olvidado por donde iba, adioh"/>
 			  
 			  
+		  </sentences>
+	  </dialogTrigger>
+
+
+
+	  <dialogTrigger x="740" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="Arin't" font="secondary">
+		  <sentences>
+			  <sentence text="holaaaaaaaaaa"/>
+		  </sentences>
+	  </dialogTrigger>
+
+	  <dialogTrigger x="850" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="Bilingue" font="secondary">
+		  <sentences>
+			  <sentence text="holaaaaaaaaaa"/>
+			  <sentence text="holaaaaaaaaaa pero con otra fuente" font="primary"/>
 		  </sentences>
 	  </dialogTrigger>
 	  
