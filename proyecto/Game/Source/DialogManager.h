@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "List.h"
 #include <vector>
+#include "SDL_ttf/include/SDL_ttf.h"
 
 class DialogManager : public Module
 {
@@ -37,6 +38,8 @@ public:
 private:
 	//Funcion que se encarga de mostrar los dialogos
 	bool ShowDialog(Dialog* dialog);
+
+	SDL_Texture* CreateTextTexture(TTF_Font* font, const char* text, SDL_Color color, int textBoundWidth);
 
 
 public:

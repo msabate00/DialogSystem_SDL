@@ -8,6 +8,7 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include "SDL_ttf/include/SDL_ttf.h"
 
 DialogManager::DialogManager() : Module()
 {
@@ -130,16 +131,9 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	
 
 	//Inicializando las variables para las texturas
-	SDL_Surface* textSurface = nullptr;
 	SDL_Texture* textTexture = nullptr;
-
-	SDL_Surface* textNameSurface = nullptr;
 	SDL_Texture* textNameTexture = nullptr;
-
-	SDL_Surface* options1NameSurface = nullptr;
 	SDL_Texture* options1NameTexture = nullptr;
-	
-	SDL_Surface* options2NameSurface = nullptr;
 	SDL_Texture* options2NameTexture = nullptr;
 
 	//Setting de las variables
@@ -162,9 +156,7 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	}
 
 	//Textura dialogo
-	textSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, actualText.c_str(), textColor, _textBoundWidth);
-	textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
-
+	textTexture = CreateTextTexture(app->render->font, actualText.c_str(), textColor, _textBoundWidth);
 	app->render->DrawTexture(textTexture, _dialogPosition.x, _dialogPosition.y, 0, 0);
 	
 	//Imagen del personaje
@@ -175,9 +167,7 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 
 
 	//Nombre personaje
-	textNameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->name.c_str(), textColor, textNameBoundWidth);
-	textNameTexture = SDL_CreateTextureFromSurface(app->render->renderer, textNameSurface);
-
+	textNameTexture = CreateTextTexture(app->render->font, dialog->name.c_str(), textColor, textNameBoundWidth);
 	app->render->DrawTexture(textNameTexture, dialogMargin[3]+ dialogPosition.x + namePosition.x, dialogMargin[0] + dialogPosition.y + namePosition.y, 0, 0);
 
 
@@ -185,15 +175,11 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	if (dialog->type == DialogType::CHOOSE) {
 
 		//Textura opcion1
-		options1NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option1.c_str(), (optionSelected == 1) ? OptionSelectedColor : OptionColor, optionsBoundWidth);
-		options1NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options1NameSurface);
-
+		options1NameTexture = CreateTextTexture(app->render->font, dialog->option1.c_str(), (optionSelected == 1) ? OptionSelectedColor : OptionColor, optionsBoundWidth);
 		app->render->DrawTexture(options1NameTexture, dialogMargin[3] + dialogPosition.x + optionsPosition.x, dialogMargin[0] + dialogPosition.y + optionsDistanceBetween, 0, 0);
 
 		//Textura opcion2
-		options2NameSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, dialog->option2.c_str(), (optionSelected == 2) ? OptionSelectedColor : OptionColor, optionsBoundWidth);
-		options2NameTexture = SDL_CreateTextureFromSurface(app->render->renderer, options2NameSurface);
-
+		options2NameTexture = CreateTextTexture(app->render->font, dialog->option2.c_str(), (optionSelected == 2) ? OptionSelectedColor : OptionColor, optionsBoundWidth);
 		app->render->DrawTexture(options2NameTexture, dialogMargin[3] + dialogPosition.x + optionsPosition.x, dialogMargin[0] + dialogPosition.y + optionsDistanceBetween*2, 0, 0);
 	}
 
@@ -201,16 +187,9 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	
 
 	//Optimizacion de la memoria
-	SDL_FreeSurface(textSurface);
 	SDL_DestroyTexture(textTexture);
-
-	SDL_FreeSurface(textNameSurface);
 	SDL_DestroyTexture(textNameTexture);
-
-	SDL_FreeSurface(options1NameSurface);
 	SDL_DestroyTexture(options1NameTexture);
-	
-	SDL_FreeSurface(options2NameSurface);
 	SDL_DestroyTexture(options2NameTexture);
 
 
@@ -228,6 +207,19 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	}
 
 	return true;
+}
+
+SDL_Texture* DialogManager::CreateTextTexture(TTF_Font* font, const char* text, SDL_Color color, int textBoundWidth)
+{
+	SDL_Surface* textSurface = nullptr;
+	SDL_Texture* textTexture = nullptr;
+
+	textSurface = TTF_RenderUTF8_Blended_Wrapped(app->render->font, text, color, textBoundWidth);
+	textTexture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
+
+	SDL_FreeSurface(textSurface);
+
+	return textTexture;
 }
 
 bool DialogManager::Update(float dt) {
