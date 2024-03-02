@@ -105,7 +105,7 @@
 		  </sentences>
 	  </dialogTrigger>
 
-	  <dialogTrigger x="850" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="Bilingue" font="secondary">
+	  <dialogTrigger x="850" y="672" texturepath="Assets/Textures/player2.png"  facetexturepath="Assets/Textures/player2_face.png" name="Bilingüe" font="secondary">
 		  <sentences>
 			  <sentence text="holaaaaaaaaaa"/>
 			  <sentence text="holaaaaaaaaaa pero con otra fuente" font="primary"/>
