@@ -88,31 +88,16 @@ Dialog* DialogManager::CreateDialog(pugi::xml_node itemNode, std::string name, c
 		//Options1
 		dialog->option1 = itemNode.child("option1").attribute("text").as_string();
 		for (pugi::xml_node optionNode = itemNode.child("option1").child("sentence"); optionNode; optionNode = optionNode.next_sibling("sentence")) {
-
-			Dialog* dialogOp1 = new Dialog(optionNode.attribute("text").as_string());
-			dialogOp1->name = name;
-			dialogOp1->name = optionNode.attribute("name").as_string(dialogOp1->name.c_str());
-			dialogOp1->face_tex = app->tex->Load(optionNode.attribute("facetexturepath").as_string(faceTexturePath));
-			dialogOp1->font = FontSelector(optionNode.attribute("font").as_string(font));
+			Dialog* dialogOp1 = CreateDialog(optionNode, name, faceTexturePath, font);
 			dialog->options1.Add(dialogOp1);
-
 		}
 
 		//Options2
 		dialog->option2 = itemNode.child("option2").attribute("text").as_string();
 		for (pugi::xml_node optionNode = itemNode.child("option2").child("sentence"); optionNode; optionNode = optionNode.next_sibling("sentence")) {
-
-			Dialog* dialogOp2 = new Dialog(optionNode.attribute("text").as_string());
-			dialogOp2->name = name;
-			dialogOp2->name = optionNode.attribute("name").as_string(dialogOp2->name.c_str());
-			dialogOp2->face_tex = app->tex->Load(optionNode.attribute("facetexturepath").as_string(faceTexturePath));
-			dialogOp2->font = FontSelector(optionNode.attribute("font").as_string(font));
+			Dialog* dialogOp2 = CreateDialog(optionNode, name, faceTexturePath, font);
 			dialog->options2.Add(dialogOp2);
 		}
-
-
-
-
 	}
 
 	return dialog;
