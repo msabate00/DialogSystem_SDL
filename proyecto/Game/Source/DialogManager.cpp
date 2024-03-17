@@ -162,11 +162,11 @@ bool DialogManager::ShowDialog(Dialog* dialog)
 	if (dialog->type == DialogType::CHOOSE) {
 
 		//Textura opcion1
-		options1NameTexture = CreateTextTexture(app->render->primary_font, dialog->option1.c_str(), (optionSelected == 1) ? OptionSelectedColor : OptionColor, optionsBoundWidth);
+		options1NameTexture = CreateTextTexture(app->render->primary_font, dialog->option1.c_str(), (optionSelected == 1) ? optionSelectedColor : optionColor, optionsBoundWidth);
 		app->render->DrawTexture(options1NameTexture, dialogMargin[3] + dialogPosition.x + optionsPosition.x, dialogMargin[0] + dialogPosition.y + optionsDistanceBetween, 0, 0);
 
 		//Textura opcion2
-		options2NameTexture = CreateTextTexture(app->render->primary_font, dialog->option2.c_str(), (optionSelected == 2) ? OptionSelectedColor : OptionColor, optionsBoundWidth);
+		options2NameTexture = CreateTextTexture(app->render->primary_font, dialog->option2.c_str(), (optionSelected == 2) ? optionSelectedColor : optionColor, optionsBoundWidth);
 		app->render->DrawTexture(options2NameTexture, dialogMargin[3] + dialogPosition.x + optionsPosition.x, dialogMargin[0] + dialogPosition.y + optionsDistanceBetween*2, 0, 0);
 	}
 
